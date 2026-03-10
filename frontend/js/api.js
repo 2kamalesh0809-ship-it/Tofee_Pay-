@@ -1,5 +1,5 @@
 // Change this to your deployed backend URL when going live (e.g., 'https://tofee-backend.onrender.com/api')
-const PROD_API_URL = 'YOUR_DEPLOYED_BACKEND_URL_HERE/api';
+const PROD_API_URL = 'https://easypay-9tdi.onrender.com/api';
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5000/api'
     : PROD_API_URL;
