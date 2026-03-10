@@ -1,0 +1,10 @@
+{
+    "name": "tofee-frontend",
+    "version": "1.0.0",
+    "description": "Frontend for Tofee Pay",
+    "main": "index.html",
+    "scripts": {
+        "dev": "npx browser-sync start --server --files '**/*'"
+    },
+    "dependencies": {}
+}
