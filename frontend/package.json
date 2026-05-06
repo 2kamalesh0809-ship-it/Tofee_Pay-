@@ -1,7 +1,7 @@
 {
     "name": "tofee-frontend",
     "version": "1.0.0",
-    "description": "Frontend for Tofee Pay",
+    "description": "Frontend for PROMPTIX PAY",
     "main": "index.html",
     "scripts": {
         "dev": "npx browser-sync start --server --files '**/*'"
