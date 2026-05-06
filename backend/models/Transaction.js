@@ -10,6 +10,9 @@ const transactionSchema = new mongoose.Schema({
     payment_gateway: { type: String, default: 'razorpay' },
     gateway_transaction_id: { type: String },
     gateway_order_id: { type: String },
+    customer_name: { type: String },
+    customer_email: { type: String },
+    customer_phone: { type: String },
     created_at: { type: Date, default: Date.now }
 });
 

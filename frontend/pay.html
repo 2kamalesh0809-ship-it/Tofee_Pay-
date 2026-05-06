@@ -4,55 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Make Payment | Tofee Pay</title>
+    <title>Secure Checkout | Tofee Pay</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
 </head>
 
-<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
-    <div id="loading" class="text-center text-gray-500">Loading payment details...</div>
-
-    <div id="payment-card" class="hidden max-w-md w-full bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-        <div class="text-center mb-8">
-            <div id="org-badge"
-                class="inline-block px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold uppercase mb-4">
-                Organization Name</div>
-            <h1 id="payment-note" class="text-2xl font-bold text-gray-900">Payment for Workshop</h1>
-            <p class="text-gray-500 mt-2">Enter your details to proceed with payment</p>
-        </div>
-
-        <div class="bg-indigo-600 rounded-2xl p-6 text-white mb-8 text-center">
-            <p class="text-indigo-100 text-sm mb-1">Amount to Pay</p>
-            <h2 id="payment-amount" class="text-4xl font-extrabold">₹0</h2>
-        </div>
-
-        <form id="pay-form" class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-                <input type="text" id="cust_name" required
-                    class="w-full px-4 py-2.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500">
+<body class="bg-[#FBFBFD] min-h-screen flex items-center justify-center p-6">
+    <!-- Centered Apple Checkout Card -->
+    <div id="checkout-card" class="max-w-md w-full animate-fade-in">
+        <div class="card-premium bg-white p-12 text-center shadow-sm">
+            <div class="mb-12">
+                <div class="w-12 h-12 bg-blue-600 rounded-xl mx-auto mb-6 flex items-center justify-center text-white text-lg font-black shadow-none">T</div>
+                <h3 id="org-name" class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Secure Payment</h3>
+                <h1 id="group-name" class="text-3xl font-extrabold text-slate-900 tracking-tight">Loading...</h1>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                <input type="email" id="cust_email" required
-                    class="w-full px-4 py-2.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500">
+
+            <div class="mb-12 py-10 bg-[#FBFBFD] rounded-[24px] border border-[#D2D2D7]/30">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Amount to Pay</p>
+                <div id="amount" class="text-5xl font-black text-slate-900 tracking-tighter">₹0</div>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                <input type="tel" id="cust_phone" required
-                    class="w-full px-4 py-2.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500">
+
+            <div id="customer-form" class="space-y-4 mb-8 text-left">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Full Name</label>
+                    <input type="text" id="cust_name" required class="input-premium" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Email Address</label>
+                    <input type="email" id="cust_email" required class="input-premium" placeholder="john@example.com">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Phone Number</label>
+                    <input type="tel" id="cust_phone" required class="input-premium" placeholder="+91 98765 43210">
+                </div>
             </div>
-            <button type="submit"
-                class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 transition transform active:scale-[0.98] mt-4">
-                Pay Now
+
+            <button id="pay-btn" class="w-full btn-premium py-5 rounded-[20px] text-lg font-bold shadow-none">
+                Proceed to Payment
             </button>
-        </form>
+
+            <div class="mt-8 flex items-center justify-center space-x-3 text-slate-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span class="text-[10px] font-bold uppercase tracking-widest">End-to-End Encrypted</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Apple Success State -->
+    <div id="success-state" class="hidden max-w-md w-full animate-fade-in text-center">
+        <div class="card-premium bg-white p-12">
+            <div class="w-24 h-24 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Payment Confirmed</h1>
+            <p class="text-slate-500 font-medium mb-10">Your transaction was successful. You can close this window now.</p>
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Receipt Ref</p>
+                <p id="payment-id" class="text-sm font-mono text-slate-900 font-bold">...</p>
+            </div>
+        </div>
     </div>
 
     <script src="js/api.js" type="module"></script>
@@ -60,76 +71,81 @@
         import { api } from './js/api.js';
 
         const urlParams = new URLSearchParams(window.location.search);
+        const groupId = urlParams.get('group_id');
         const token = urlParams.get('token');
+        let paymentData = null;
 
-        if (!token) {
-            document.getElementById('loading').innerHTML = '<div class="text-red-500 font-bold">Invalid Payment Link</div>';
-        } else {
-            loadPaymentDetails();
-        }
-
-        async function loadPaymentDetails() {
+        async function init() {
             try {
-                const link = await api.paymentLinks.getOne(token);
-                document.getElementById('loading').classList.add('hidden');
-                document.getElementById('payment-card').classList.remove('hidden');
+                if (token) {
+                    paymentData = await api.paymentLinks.getOne(token);
+                } else if (groupId) {
+                    paymentData = await api.groups.getPublic(groupId);
+                } else {
+                    throw new Error('Invalid payment link');
+                }
 
-                document.getElementById('org-badge').textContent = link.organization_id.name;
-                document.getElementById('payment-note').textContent = link.note;
-                document.getElementById('payment-amount').textContent = `₹${link.amount}`;
-
-                document.getElementById('pay-form').onsubmit = (e) => handlePayment(e, link);
+                document.getElementById('org-name').innerText = paymentData.organization_id.name;
+                document.getElementById('group-name').innerText = paymentData.name || paymentData.note;
+                document.getElementById('amount').innerText = `₹${paymentData.amount.toLocaleString()}`;
             } catch (err) {
-                document.getElementById('loading').innerHTML = `<div class="text-red-500 font-bold">${err.message}</div>`;
+                document.getElementById('group-name').innerText = 'Invalid Link';
+                document.getElementById('pay-btn').disabled = true;
+                document.getElementById('pay-btn').innerText = 'Link Expired';
             }
         }
 
-        async function handlePayment(e, link) {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            btn.disabled = true;
-            btn.textContent = 'Processing...';
-
+        document.getElementById('pay-btn').onclick = async () => {
             try {
-                const payload = {
-                    customer_name: document.getElementById('cust_name').value,
-                    customer_email: document.getElementById('cust_email').value,
-                    customer_phone: document.getElementById('cust_phone').value,
-                };
+                const customerName = document.getElementById('cust_name').value;
+                const customerEmail = document.getElementById('cust_email').value;
+                const customerPhone = document.getElementById('cust_phone').value;
 
-                const data = await api.paymentLinks.initiate(token, payload);
+                if (!customerName || !customerEmail || !customerPhone) {
+                    alert('Please enter your name, email and phone number');
+                    return;
+                }
+
+                const order = await api.payments.initiate(token || groupId, {
+                    customer_name: customerName,
+                    customer_email: customerEmail,
+                    customer_phone: customerPhone
+                });
 
                 const options = {
-                    key: data.key_id,
-                    amount: data.amount,
-                    currency: 'INR',
-                    name: link.organization_id.name,
-                    description: link.note,
-                    order_id: data.order_id,
-                    handler: function (response) {
-                        alert('Payment Successful!');
-                        window.location.reload();
+                    key: order.key_id,
+                    amount: order.amount,
+                    currency: "INR",
+                    name: paymentData.organization_id.name,
+                    description: paymentData.name || paymentData.note,
+                    order_id: order.order_id,
+                    handler: async function (response) {
+                        try {
+                            await api.payments.verify(order.transaction_id);
+                            
+                            document.getElementById('checkout-card').classList.add('hidden');
+                            document.getElementById('success-state').classList.remove('hidden');
+                            document.getElementById('payment-id').innerText = response.razorpay_payment_id;
+                        } catch (err) {
+                            alert('Verification failed: ' + err.message);
+                        }
                     },
                     prefill: {
-                        name: payload.customer_name,
-                        email: payload.customer_email,
-                        contact: payload.customer_phone,
+                        name: customerName,
+                        email: customerEmail,
+                        contact: customerPhone
                     },
-                    theme: { color: '#4F46E5' }
+                    theme: { color: "#0071E3" }
                 };
 
                 const rzp = new Razorpay(options);
                 rzp.open();
-
-                btn.disabled = false;
-                btn.textContent = 'Pay Now';
             } catch (err) {
                 alert(err.message);
-                btn.disabled = false;
-                btn.textContent = 'Pay Now';
             }
-        }
+        };
+
+        init();
     </script>
 </body>
-
 </html>

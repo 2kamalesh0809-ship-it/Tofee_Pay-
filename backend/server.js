@@ -23,6 +23,10 @@ app.use(cors());
 app.use(helmet());
 app.use(compression());
 app.use(morgan('dev'));
+app.use('/api/webhooks', (req, res, next) => {
+    console.log(`[WEBHOOK_INCOMING] ${req.method} ${req.url}`);
+    next();
+});
 
 // Routes
 app.use('/api/auth', authRoutes);

@@ -19,7 +19,64 @@ exports.createGroup = async (req, res) => {
 
 exports.getGroups = async (req, res) => {
     try {
-        const groups = await Group.find({ organization_id: req.user.organization_id });
+        const mongoose = require('mongoose');
+        const orgId = new mongoose.Types.ObjectId(req.user.organization_id);
+
+        const groups = await Group.aggregate([
+            { $match: { organization_id: orgId } },
+            {
+                $lookup: {
+                    from: 'members',
+                    let: { groupId: '$_id' },
+                    pipeline: [
+                        { $match: { $expr: { $eq: ['$group_id', '$$groupId'] } } }
+                    ],
+                    as: 'group_members'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'transactions',
+                    let: { groupId: '$_id' },
+                    pipeline: [
+                        { $match: { $expr: { $eq: ['$group_id', '$$groupId'] } } }
+                    ],
+                    as: 'transactions'
+                }
+            },
+            {
+                $project: {
+                    name: 1,
+                    amount: 1,
+                    billing_cycle: 1,
+                    member_count: { $size: '$group_members' },
+                    paid_count: {
+                        $size: {
+                            $filter: {
+                                input: '$transactions',
+                                as: 't',
+                                cond: { $eq: ['$$t.payment_status', 'paid'] }
+                            }
+                        }
+                    },
+                    total_revenue: {
+                        $sum: {
+                            $map: {
+                                input: {
+                                    $filter: {
+                                        input: '$transactions',
+                                        as: 't',
+                                        cond: { $eq: ['$$t.payment_status', 'paid'] }
+                                    }
+                                },
+                                as: 't',
+                                in: '$$t.amount'
+                            }
+                        }
+                    }
+                }
+            }
+        ]);
         res.status(200).json(groups);
     } catch (error) {
         res.status(500).json({ message: error.message });

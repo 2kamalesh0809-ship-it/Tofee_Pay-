@@ -6,127 +6,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quick Collect | Tofee Pay</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="bg-gray-50 flex min-h-screen">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-gray-100 flex-shrink-0">
-        <div class="h-16 flex items-center px-6 border-b border-gray-100">
-            <span class="text-xl font-bold text-indigo-600">Tofee Pay</span>
+<body class="bg-[#FBFBFD] flex min-h-screen">
+    <!-- Apple Minimal Sidebar -->
+    <aside class="w-64 bg-white border-r border-[#D2D2D7]/30 flex-shrink-0 flex flex-col pt-8">
+        <div class="px-8 mb-10">
+            <span class="text-lg font-extrabold tracking-tight text-slate-900 flex items-center">
+                <span class="w-6 h-6 bg-blue-600 rounded-md mr-2 flex items-center justify-center text-white text-[10px]">T</span>
+                Tofee Pay
+            </span>
         </div>
-        <nav class="p-4 space-y-2">
-            <a href="dashboard.html"
-                class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl font-medium transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                    </path>
-                </svg>
+        
+        <nav class="flex-1 px-4 space-y-0.5">
+            <a href="dashboard.html" class="sidebar-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 <span>Dashboard</span>
             </a>
-            <a href="groups.html"
-                class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl font-medium transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                    </path>
-                </svg>
-                <span>Groups</span>
+            <a href="groups.html" class="sidebar-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                <span>Payment Groups</span>
             </a>
-            <a href="members.html"
-                class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl font-medium transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
-                    </path>
-                </svg>
+            <a href="members.html" class="sidebar-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 <span>Members</span>
             </a>
-            <a href="transactions.html"
-                class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl font-medium transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
-                    </path>
-                </svg>
+            <a href="transactions.html" class="sidebar-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                 <span>Transactions</span>
             </a>
-            <a href="quick-collect.html"
-                class="flex items-center space-x-3 px-4 py-3 text-indigo-600 bg-indigo-50 rounded-xl font-medium">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
-                    </path>
-                </svg>
+            <a href="quick-collect.html" class="sidebar-item active">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
                 <span>Quick Collect</span>
             </a>
-            <a href="settings.html"
-                class="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl font-medium transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                    </path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
-                    </path>
-                </svg>
+            <a href="settings.html" class="sidebar-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
                 <span>Settings</span>
             </a>
-            <div class="pt-10">
-                <button id="logout-btn"
-                    class="flex items-center space-x-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl font-medium transition w-full text-left">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                        </path>
-                    </svg>
-                    <span>Logout</span>
-                </button>
-            </div>
         </nav>
+
+        <div class="p-6">
+            <button id="logout-btn" class="w-full flex items-center space-x-3 px-4 py-2 text-rose-500 hover:bg-rose-50 rounded-lg text-sm font-medium transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                <span>Logout</span>
+            </button>
+        </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto">
-        <header class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-8 sticky top-0 z-10">
-            <h2 class="text-xl font-bold text-gray-900">Quick Collect Links</h2>
-            <button onclick="toggleModal('link-modal')"
-                class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-indigo-700 transition">
+    <main class="flex-1 flex flex-col overflow-hidden">
+        <!-- Apple Glass Header -->
+        <header class="h-16 glass flex items-center justify-between px-10 flex-shrink-0 z-10">
+            <h2 class="text-xl font-bold text-slate-900 tracking-tight">Quick Collect</h2>
+            <button onclick="toggleModal('link-modal')" class="btn-premium px-6 py-2">
                 + Generate Link
             </button>
         </header>
 
-        <div class="p-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="links-list">
+        <!-- Content Area -->
+        <div class="flex-1 overflow-y-auto p-10 animate-fade-in">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="links-list">
                 <!-- Links loaded here -->
             </div>
         </div>
     </main>
 
-    <!-- Modal -->
-    <div id="link-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-3xl w-full max-w-md p-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6">Generate Payment Link</h3>
-            <form id="link-form" class="space-y-4">
+    <!-- macOS-Style Sheet Modal -->
+    <div id="link-modal" class="hidden fixed inset-0 bg-black/10 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-[24px] w-full max-w-md p-10 shadow-2xl animate-fade-in border border-[#D2D2D7]/50">
+            <div class="flex justify-between items-center mb-10">
+                <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Payment Link</h3>
+                <button onclick="toggleModal('link-modal')" class="text-slate-400 hover:text-slate-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <form id="link-form" class="space-y-8">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Amount (₹)</label>
-                    <input type="number" id="link_amount" required
-                        class="w-full px-4 py-2 rounded-xl border border-gray-200 outline-none" placeholder="1000">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Amount (₹)</label>
+                    <input type="number" id="link_amount" required class="input-premium" placeholder="1000">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Purpose / Note</label>
-                    <input type="text" id="link_note" required
-                        class="w-full px-4 py-2 rounded-xl border border-gray-200 outline-none"
-                        placeholder="Workshop Registration">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Purpose / Ref</label>
+                    <input type="text" id="link_note" required class="input-premium" placeholder="e.g. Workshop Registration">
                 </div>
-                <div class="flex space-x-3 pt-4">
-                    <button type="button" onclick="toggleModal('link-modal')"
-                        class="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium">Cancel</button>
-                    <button type="submit"
-                        class="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold">Generate</button>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Group Association</label>
+                    <select id="group_id" class="input-premium appearance-none bg-slate-50">
+                        <option value="">No Group (General)</option>
+                    </select>
+                </div>
+                <div class="flex space-x-4 pt-4">
+                    <button type="button" onclick="toggleModal('link-modal')" class="flex-1 btn-secondary py-3">Cancel</button>
+                    <button type="submit" class="flex-1 btn-premium py-3">Generate URL</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Apple-Style Toast -->
+    <div id="toast-container" class="toast-notification">
+        <div class="toast-icon-box">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div id="toast-message" class="toast-content">Action completed successfully</div>
+    </div>
+
+    <!-- Custom Apple Alert Modal -->
+    <div id="apple-alert-overlay" class="apple-alert-overlay">
+        <div class="apple-alert">
+            <h3 class="apple-alert-title">Delete Link?</h3>
+            <p class="apple-alert-body">This action cannot be undone. All sharing URLs for this link will stop working.</p>
+            <div class="apple-alert-buttons">
+                <button id="alert-cancel-btn" class="apple-alert-btn">Cancel</button>
+                <button id="alert-confirm-btn" class="apple-alert-btn destructive">Delete</button>
+            </div>
         </div>
     </div>
 
@@ -144,30 +138,93 @@
             el.classList.toggle('hidden');
         };
 
+        window.showToast = (message) => {
+            const toast = document.getElementById('toast-container');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        };
+
+        window.appleConfirm = (title, body, onConfirm) => {
+            const overlay = document.getElementById('apple-alert-overlay');
+            const titleEl = overlay.querySelector('.apple-alert-title');
+            const bodyEl = overlay.querySelector('.apple-alert-body');
+            const cancelBtn = document.getElementById('alert-cancel-btn');
+            const confirmBtn = document.getElementById('alert-confirm-btn');
+
+            titleEl.innerText = title;
+            bodyEl.innerText = body;
+            overlay.classList.add('show');
+
+            const cleanup = () => {
+                overlay.classList.remove('show');
+                cancelBtn.onclick = null;
+                confirmBtn.onclick = null;
+            };
+
+            cancelBtn.onclick = cleanup;
+            confirmBtn.onclick = () => {
+                onConfirm();
+                cleanup();
+            };
+        };
+
+        let allGroups = [];
+
         async function loadLinks() {
             try {
+                // Load Groups into Dropdown
+                allGroups = await api.groups.getAll();
+                const groupSelect = document.getElementById('group_id');
+                groupSelect.innerHTML = '<option value="">No Group (General)</option>';
+                allGroups.forEach(g => {
+                    const opt = document.createElement('option');
+                    opt.value = g._id;
+                    opt.textContent = g.name;
+                    groupSelect.appendChild(opt);
+                });
+
                 const links = await api.paymentLinks.getAll();
                 const container = document.getElementById('links-list');
-
+                
                 if (links.length === 0) {
-                    container.innerHTML = '<div class="col-span-full text-center py-20 text-gray-500">No payment links generated yet.</div>';
+                    container.innerHTML = `
+                        <div class="col-span-full text-center py-32 card-premium bg-white">
+                            <h3 class="text-xl font-bold text-slate-900 mb-2 tracking-tight">No links generated</h3>
+                            <p class="text-slate-500 mb-8 font-medium">Create your first collection link to start getting paid.</p>
+                            <button onclick="toggleModal('link-modal')" class="btn-premium px-8 py-2">Generate First Link</button>
+                        </div>
+                    `;
                     return;
                 }
 
                 container.innerHTML = links.map(link => `
-                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                        <div class="flex justify-between items-start mb-4">
+                    <div class="card-premium p-8 group relative overflow-hidden bg-white">
+                        <div class="flex justify-between items-start mb-6">
                             <div>
-                                <h4 class="font-bold text-gray-900">${link.note}</h4>
-                                <p class="text-2xl font-extrabold text-indigo-600">₹${link.amount}</p>
+                                <h4 class="text-lg font-extrabold text-slate-900 tracking-tight group-hover:text-blue-600 transition">${link.note}</h4>
+                                <p class="text-3xl font-black text-slate-900 mt-1">₹${link.amount.toLocaleString()}</p>
                             </div>
-                            <span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase ${link.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
+                            <div class="flex flex-col items-end space-y-2">
+                                <span class="status-badge ${link.status === 'active' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-400'
                     }">${link.status}</span>
+                                <button onclick="deleteLink('${link._id}')" class="text-slate-300 hover:text-rose-500 transition-colors p-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
                         </div>
-                        <div class="bg-gray-50 p-3 rounded-xl mb-4 break-all text-xs text-gray-500 font-mono">
+                        
+                        <div class="bg-slate-50 p-4 rounded-xl mb-8 font-mono text-[10px] text-slate-400 break-all border border-slate-100/50">
                             ${window.location.origin}/pay.html?token=${link.link_token}
                         </div>
-                        <button onclick="copyLink('${link.link_token}')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-xl text-sm font-bold hover:bg-indigo-100 transition">Copy URL</button>
+                        
+                        <button onclick="copyLink('${link.link_token}', this)" class="w-full btn-secondary py-2.5 text-xs font-bold transition flex items-center justify-center space-x-2 border-slate-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            <span>Copy URL</span>
+                        </button>
                     </div>
                 `).join('');
             } catch (err) {
@@ -175,31 +232,74 @@
             }
         }
 
+        // Auto-fill amount when group is selected
+        document.getElementById('group_id').onchange = (e) => {
+            const groupId = e.target.value;
+            if (groupId) {
+                const group = allGroups.find(g => g._id === groupId);
+                if (group) {
+                    document.getElementById('link_amount').value = group.amount;
+                    document.getElementById('link_note').value = group.name;
+                }
+            } else {
+                document.getElementById('link_amount').value = '';
+                document.getElementById('link_note').value = '';
+            }
+        };
+
         document.getElementById('link-form').onsubmit = async (e) => {
             e.preventDefault();
             const payload = {
                 amount: document.getElementById('link_amount').value,
                 note: document.getElementById('link_note').value,
+                group_id: document.getElementById('group_id').value || null
             };
 
             try {
                 await api.paymentLinks.create(payload);
                 toggleModal('link-modal');
+                showToast('Link generated successfully');
                 loadLinks();
             } catch (err) {
-                alert(err.message);
+                showToast(err.message);
             }
         };
 
-        window.copyLink = (token) => {
+        window.deleteLink = async (id) => {
+            appleConfirm(
+                'Delete Link?',
+                'This action cannot be undone. All sharing URLs for this link will stop working.',
+                async () => {
+                    try {
+                        const res = await api.paymentLinks.delete(id);
+                        showToast(res.message || 'Payment link deleted');
+                        loadLinks();
+                    } catch (err) {
+                        showToast(err.message);
+                    }
+                }
+            );
+        };
+
+        window.copyLink = (token, btn) => {
             const url = `${window.location.origin}/pay.html?token=${token}`;
             navigator.clipboard.writeText(url).then(() => {
-                alert('Payment link copied to clipboard!');
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = `
+                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span class="text-emerald-600">Link Copied</span>
+                `;
+                btn.classList.add('bg-emerald-50', 'border-emerald-100');
+                showToast('URL copied to clipboard');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.classList.remove('bg-emerald-50', 'border-emerald-100');
+                }, 2000);
             });
         };
 
         loadLinks();
     </script>
 </body>
-
 </html>

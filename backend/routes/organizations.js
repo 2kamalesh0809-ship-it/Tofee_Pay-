@@ -5,7 +5,7 @@ const { auth } = require('../middleware/auth');
 
 router.get('/my', auth, async (req, res) => {
     try {
-        const org = await Organization.findById(req.user.organization_id);
+        const org = await Organization.findById(req.user.organization_id).populate('owner_id');
         res.json(org);
     } catch (err) {
         res.status(500).json({ message: err.message });

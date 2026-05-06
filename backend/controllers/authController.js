@@ -25,10 +25,11 @@ exports.register = async (req, res) => {
         }
 
         await user.save();
+        const populatedUser = await User.findById(user._id).populate('organization_id');
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-        res.status(201).json({ user, token });
+        res.status(201).json({ user: populatedUser, token });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -37,7 +38,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).populate('organization_id');
 
         if (!user || !(await user.comparePassword(password))) {
             return res.status(401).json({ message: 'Invalid credentials' });

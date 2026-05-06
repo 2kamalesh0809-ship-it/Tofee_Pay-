@@ -1,64 +1,298 @@
-/* Custom styles for Tofee Pay */
+/* Tofee Pay - Apple-Inspired Minimalist Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --indigo-primary: #4f46e5;
-    --indigo-secondary: #4338ca;
+    --primary: #0071E3; /* Apple Blue */
+    --primary-hover: #0077ED;
+    --bg-main: #FFFFFF;
+    --bg-secondary: #FBFBFD; /* Apple Light Gray */
+    --text-main: #1D1D1F; /* Apple Black */
+    --text-muted: #86868B; /* Apple Gray */
+    --border: #D2D2D7;
+    --border-light: #E5E5E7;
+    --radius: 12px;
+    --shadow-minimal: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Glassmorphism effects */
-.glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+/* Apple-Style Buttons */
+.btn-premium {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Custom transitions */
-.transition-all {
+.btn-premium:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-premium:active {
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    color: var(--primary);
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-secondary:hover {
+    background-color: #F5F5F7;
+    border-color: var(--border);
+}
+
+/* Apple Cards */
+.card-premium {
+    background: var(--bg-main);
+    border-radius: 20px;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-minimal);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Shadow enhancements */
-.shadow-premium {
-    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.05), 0 4px 6px -2px rgba(79, 70, 229, 0.025);
+.card-premium:hover {
+    box-shadow: var(--shadow-soft);
+    border-color: var(--border);
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-    width: 6px;
+/* Apple Glass (Frosted) */
+.glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
+/* Apple Sidebar */
+.sidebar-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 10px 16px !important;
+    border-radius: 10px !important;
+    font-weight: 400;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-::-webkit-scrollbar-thumb {
-    background: #e2e2e2;
+.sidebar-item svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.5;
+}
+
+.sidebar-item.active {
+    color: var(--text-main) !important;
+    background-color: var(--bg-secondary) !important;
+    font-weight: 600;
+}
+
+.sidebar-item:not(.active) {
+    color: var(--text-muted) !important;
+}
+
+.sidebar-item:not(.active):hover {
+    background-color: #F5F5F7 !important;
+    color: var(--text-main) !important;
+}
+
+/* Inputs */
+.input-premium {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background-color: var(--bg-secondary);
+    outline: none;
+    transition: all 0.2s ease;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.input-premium:focus {
+    border-color: var(--primary);
+    background-color: var(--bg-main);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+}
+
+/* Tables */
+.table-header {
+    background-color: var(--bg-secondary);
+    color: var(--text-muted);
+    font-size: 12px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.status-badge {
+    padding: 2px 10px;
     border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #d1d1d1;
-}
-
-/* Animation for cards */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    font-size: 11px;
+    font-weight: 500;
+    display: inline-block;
 }
 
 .animate-fade-in {
-    animation: fadeIn 0.4s ease-out forwards;
+    animation: appleFade 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Premium Apple Toast Notification System */
+.toast-notification {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 14px 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    z-index: 9999;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    max-width: 320px;
+}
+
+.toast-notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-icon-box {
+    width: 22px;
+    height: 22px;
+    background: #0071E3;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.toast-content {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1D1D1F;
+    line-height: 1.4;
+}
+
+/* Custom Apple Alert Modal System */
+.apple-alert-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.apple-alert-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.apple-alert {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(180%) blur(30px);
+    -webkit-backdrop-filter: saturate(180%) blur(30px);
+    width: 270px;
+    border-radius: 14px;
+    padding: 20px 0 0 0;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+    transition: transform 0.3s cubic-bezier(0.2, 1, 0.2, 1);
+    overflow: hidden;
+}
+
+.apple-alert-overlay.show .apple-alert {
+    transform: scale(1);
+}
+
+.apple-alert-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1D1D1F;
+    margin-bottom: 2px;
+    padding: 0 20px;
+}
+
+.apple-alert-body {
+    font-size: 13px;
+    color: #1D1D1F;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    padding: 0 20px;
+}
+
+.apple-alert-buttons {
+    display: flex;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.apple-alert-btn {
+    flex: 1;
+    padding: 12px;
+    font-size: 17px;
+    font-weight: 400;
+    color: #0071E3;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.apple-alert-btn:first-child {
+    border-right: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.apple-alert-btn.destructive {
+    color: #FF3B30;
+    font-weight: 600;
+}
+
+.apple-alert-btn:active {
+    background: rgba(0, 0, 0, 0.05);
 }

@@ -3,6 +3,7 @@ const crypto = require('crypto');
 
 const paymentLinkSchema = new mongoose.Schema({
     organization_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Organization', required: true },
+    group_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Group' },
     amount: { type: Number, required: true },
     note: { type: String },
     link_token: { type: String, unique: true },
