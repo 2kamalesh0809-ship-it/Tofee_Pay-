@@ -1,5 +1,4 @@
-// YOUR PRODUCTION BACKEND URL: Replace this once you deploy to Render (e.g., 'https://your-app-name.onrender.com/api')
-const PROD_API_URL = 'https://tofee-pay-backend.onrender.com/api';
+const PROD_API_URL = 'https://tofee-pay.onrender.com/api';
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5001/api'
     : PROD_API_URL;
