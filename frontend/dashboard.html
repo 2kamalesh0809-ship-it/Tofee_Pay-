@@ -197,6 +197,7 @@
                     <tr class="hover:bg-slate-50/50 transition">
                         <td class="px-8 py-5" data-label="Customer">
                             <div class="font-semibold text-slate-900">${tr.member_id?.name || tr.customer_name || 'Guest'}</div>
+                            ${tr.customer_phone ? `<div class="text-[9px] text-blue-500 font-bold mt-0.5">${tr.customer_phone}</div>` : ''}
                             <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">${tr.gateway_order_id || tr.razorpay_order_id || 'N/A'}</div>
                         </td>
                         <td class="px-8 py-5" data-label="Group">
