@@ -320,7 +320,27 @@ body {
 }
 
 /* Fluid Spacing & Typography */
+@media (max-width: 480px) {
+    .text-4xl {
+        font-size: 1.75rem !important;
+    }
+    nav a.text-xl {
+        font-size: 17px !important;
+        letter-spacing: -0.01em;
+    }
+    nav .px-6 {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+}
+
 @media (max-width: 768px) {
+    .pt-40 {
+        padding-top: 80px !important;
+    }
+    .pb-20 {
+        padding-bottom: 40px !important;
+    }
     .p-10 {
         padding: 24px !important;
     }
@@ -337,6 +357,77 @@ body {
     .btn-premium, .btn-secondary {
         width: 100%;
         margin-bottom: 12px;
+        min-height: 48px; /* Optimal touch target */
+        font-size: 15px !important;
+        padding: 12px 24px !important;
+    }
+
+    .input-premium {
+        min-height: 48px;
+        font-size: 16px !important; /* Prevents auto-zoom on iOS */
+    }
+
+    /* Neater Header & Action Spacing on Mobile */
+    header .btn-premium {
+        width: auto !important;
+        margin-bottom: 0;
+        padding: 8px 16px !important;
+        min-height: 38px;
+        font-size: 13px !important;
+    }
+
+    /* Stack buttons in modals/forms on mobile - targeted at buttons */
+    .flex.space-x-6 > .btn-premium, 
+    .flex.space-x-6 > .btn-secondary,
+    .flex.space-x-4 > .btn-premium, 
+    .flex.space-x-4 > .btn-secondary,
+    .flex.space-x-3 > .btn-premium,
+    .flex.space-x-3 > .btn-secondary {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .flex.space-x-6:has(> .btn-premium),
+    .flex.space-x-4:has(> .btn-premium), 
+    .flex.space-x-3:has(> .btn-premium) {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    /* Fluid Typography Scaling */
+    .text-6xl, h1.text-6xl {
+        font-size: 2.5rem !important; /* Elegant mobile sizing */
+        line-height: 1.1 !important;
+        letter-spacing: -0.02em !important;
+    }
+    
+    .text-7xl, h1.text-7xl {
+        font-size: 2.75rem !important;
+        line-height: 1.1 !important;
+    }
+
+    /* Navbar Clean-up */
+    nav .px-6 {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    /* Section Tightening */
+    .pt-40 {
+        padding-top: 100px !important;
+    }
+    .pb-20 {
+        padding-bottom: 40px !important;
+    }
+    .py-32 {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
+
+    /* Maintain desktop-like feel for small badges and icons */
+    .status-badge {
+        width: auto !important;
+        margin-bottom: 0;
     }
 }
 
