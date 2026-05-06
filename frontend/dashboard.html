@@ -10,13 +10,19 @@
 </head>
 
 <body class="bg-[#FBFBFD] flex min-h-screen">
+    <!-- Mobile Overlay -->
+    <div id="sidebar-overlay" class="overlay" onclick="toggleSidebar()"></div>
+
     <!-- Apple Minimal Sidebar -->
-    <aside class="w-64 bg-white border-r border-[#D2D2D7]/30 flex-shrink-0 flex flex-col pt-8">
-        <div class="px-8 mb-10">
+    <aside id="main-sidebar" class="w-64 bg-white border-r border-[#D2D2D7]/30 flex-shrink-0 flex flex-col pt-8">
+        <div class="px-8 mb-10 flex items-center justify-between">
             <span class="text-lg font-extrabold tracking-tight text-slate-900 flex items-center">
                 <span class="w-6 h-6 bg-blue-600 rounded-md mr-2 flex items-center justify-center text-white text-[10px]">T</span>
                 Tofee Pay
             </span>
+            <button onclick="toggleSidebar()" class="mobile-nav-toggle lg:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
         </div>
         
         <nav class="flex-1 px-4 space-y-0.5">
@@ -58,14 +64,22 @@
     <main class="flex-1 flex flex-col overflow-hidden">
         <!-- Apple Glass Header -->
         <header class="h-16 glass flex items-center justify-between px-10 flex-shrink-0 z-10">
-            <h2 class="text-xl font-bold text-slate-900 tracking-tight">Overview</h2>
-            <div id="user-info" class="text-sm font-medium text-slate-500">Welcome</div>
+            <div class="flex items-center">
+                <button onclick="toggleSidebar()" class="mobile-nav-toggle lg:hidden mr-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+                <h2 class="text-xl font-bold text-slate-900 tracking-tight">Overview</h2>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span id="user-info" class="text-sm font-semibold text-slate-500 hidden sm:block">Admin</span>
+                <div class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-200">A</div>
+            </div>
         </header>
 
         <!-- Content Area -->
-        <div class="flex-1 overflow-y-auto p-10 space-y-10 animate-fade-in">
+        <div class="flex-1 overflow-y-auto p-10 animate-fade-in">
             <!-- Stats Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="responsive-grid mb-10">
                 <div class="card-premium p-10 bg-white">
                     <div class="flex items-center justify-between mb-8">
                         <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Revenue</span>
@@ -117,8 +131,8 @@
                     <h3 class="text-lg font-bold text-slate-900">Recent Transactions</h3>
                     <a href="transactions.html" class="text-sm font-semibold text-blue-600 hover:underline">View All</a>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left">
+                <div class="table-container">
+                    <table class="w-full text-left responsive-table">
                         <thead>
                             <tr class="table-header">
                                 <th class="px-8 py-4">Customer</th>
@@ -143,6 +157,14 @@
 
         const user = requireAuth();
         document.getElementById('logout-btn').onclick = logout;
+
+        // --- RESPONSIVE SIDEBAR TOGGLE ---
+        window.toggleSidebar = () => {
+            const sidebar = document.getElementById('main-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        };
 
         async function loadDashboard() {
             try {
@@ -173,20 +195,20 @@
 
                 list.innerHTML = transactions.map(tr => `
                     <tr class="hover:bg-slate-50/50 transition">
-                        <td class="px-8 py-5">
+                        <td class="px-8 py-5" data-label="Customer">
                             <div class="font-semibold text-slate-900">${tr.member_id?.name || tr.customer_name || 'Guest'}</div>
                             <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">${tr.gateway_order_id || tr.razorpay_order_id || 'N/A'}</div>
                         </td>
-                        <td class="px-8 py-5">
+                        <td class="px-8 py-5" data-label="Group">
                             <span class="status-badge bg-blue-50 text-blue-600">${tr.group_id?.name || 'Quick Collect'}</span>
                         </td>
-                        <td class="px-8 py-5 font-bold text-slate-900">₹${tr.amount}</td>
-                        <td class="px-8 py-5">
+                        <td class="px-8 py-5 font-bold text-slate-900" data-label="Amount">₹${tr.amount}</td>
+                        <td class="px-8 py-5" data-label="Status">
                             <span class="status-badge ${tr.payment_status === 'paid' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}">
                                 ${tr.payment_status}
                             </span>
                         </td>
-                        <td class="px-8 py-5 text-slate-400 text-xs font-medium text-right">${new Date(tr.created_at).toLocaleDateString()}</td>
+                        <td class="px-8 py-5 text-slate-400 text-xs font-medium text-right" data-label="Date">${new Date(tr.created_at).toLocaleDateString()}</td>
                     </tr>
                 `).join('');
             } catch (err) {
