@@ -237,7 +237,7 @@
                         </div>
                         
                         <div class="bg-slate-50 p-4 rounded-xl mb-8 font-mono text-[10px] text-slate-400 break-all border border-slate-100/50">
-                            ${window.location.origin}/pay.html?token=${link.link_token}
+                            ${window.location.href.split('/').slice(0, -1).join('/')}/pay.html?token=${link.link_token}
                         </div>
                         
                         <button onclick="copyLink('${link.link_token}', this)" class="w-full btn-secondary py-2.5 text-xs font-bold transition flex items-center justify-center space-x-2 border-slate-200">
@@ -301,7 +301,8 @@
         };
 
         window.copyLink = (token, btn) => {
-            const url = `${window.location.origin}/pay.html?token=${token}`;
+            const baseUrl = window.location.href.split('/').slice(0, -1).join('/');
+            const url = `${baseUrl}/pay.html?token=${token}`;
             navigator.clipboard.writeText(url).then(() => {
                 const originalContent = btn.innerHTML;
                 btn.innerHTML = `

@@ -4,68 +4,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Checkout | PROMPTIX PAY</title>
+    <title>Secure Checkout | UMA MAHESHWARI AGENCY</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        .logo-container img {
+            max-height: 80px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 480px) {
+            .logo-container img {
+                max-height: 60px;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-[#FBFBFD] min-h-screen flex items-center justify-center p-4 sm:p-6">
-    <!-- Centered Apple Checkout Card -->
-    <div id="checkout-card" class="max-w-md w-full animate-fade-in">
-        <div class="card-premium bg-white p-6 sm:p-12 text-center shadow-sm">
-            <div class="mb-12">
-                <img src="assets/logo.png" class="w-16 h-16 mx-auto mb-6 object-contain logo-blend" alt="PROMPTIX PAY">
-                <h3 id="org-name" class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Secure Payment</h3>
-                <h1 id="group-name" class="text-3xl font-extrabold text-slate-900 tracking-tight">Loading...</h1>
+<body class="bg-[#FBFBFD] min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 py-12">
+    <!-- Main Payment Card -->
+    <div id="checkout-card" class="max-w-md w-full animate-fade-in flex flex-col items-center">
+        <div class="card-premium bg-white p-6 sm:p-12 text-center shadow-sm w-full">
+            <!-- Dual Logos Header -->
+            <div class="logo-container flex items-center justify-center space-x-6 mb-12">
+                <img src="assets/cbc-logo.png" class="logo-blend" alt="CBC Logo">
+                <div class="logo-divider w-px h-12 bg-slate-100"></div>
+                <img src="assets/uma-logo.png" class="logo-blend" alt="UMA Logo">
             </div>
 
-            <div class="mb-12 py-10 bg-[#FBFBFD] rounded-[24px] border border-[#D2D2D7]/30">
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Amount to Pay</p>
+            <!-- Title Section -->
+            <div class="mb-12">
+                <p id="org-name" class="text-[11px] font-black text-blue-600 uppercase tracking-[0.2em] mb-3">Live
+                    Account</p>
+                <h1 id="group-name" class="text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">UMA
+                    MAHESHWARI AGENCY</h1>
+            </div>
+
+            <!-- Amount Display -->
+            <div class="mb-12 py-10 bg-[#FBFBFD] rounded-[32px] border border-[#D2D2D7]/40 shadow-inner">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Amount to Pay</p>
                 <div id="amount" class="text-5xl font-black text-slate-900 tracking-tighter">₹0</div>
             </div>
 
-            <div id="customer-form" class="space-y-4 mb-8 text-left">
+            <!-- Payment Form -->
+            <div id="customer-form" class="space-y-5 mb-10 text-left">
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Full Name</label>
-                    <input type="text" id="cust_name" required class="input-premium" placeholder="John Doe">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Full
+                        Name</label>
+                    <input type="text" id="cust_name" required class="input-premium py-4" placeholder="John Doe">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Email Address</label>
-                    <input type="email" id="cust_email" required class="input-premium" placeholder="john@example.com">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Email
+                        Address</label>
+                    <input type="email" id="cust_email" required class="input-premium py-4"
+                        placeholder="john@example.com">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Phone Number</label>
-                    <input type="tel" id="cust_phone" required class="input-premium" placeholder="+91 98765 43210">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Phone
+                        Number</label>
+                    <input type="tel" id="cust_phone" required class="input-premium py-4" placeholder="+91 98765 43210">
                 </div>
             </div>
 
-            <button id="pay-btn" class="w-full btn-premium py-5 rounded-[20px] text-lg font-bold shadow-none">
+            <!-- Action Button -->
+            <button id="pay-btn"
+                class="w-full btn-premium py-5 rounded-[24px] text-lg font-bold shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-transform">
                 Proceed to Payment
             </button>
 
-            <div class="mt-8 flex items-center justify-center space-x-3 text-slate-400">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                <span class="text-[10px] font-bold uppercase tracking-widest">End-to-End Encrypted</span>
+            <!-- Encryption Note -->
+            <div class="mt-8 flex items-center justify-center space-x-3 text-slate-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                    </path>
+                </svg>
+                <span class="text-[10px] font-bold uppercase tracking-[0.1em]">End-to-End Encrypted</span>
             </div>
         </div>
+
+        <!-- Support Info Container (Outside Main Box) -->
+        <div
+            class="mt-6 w-full bg-white rounded-[28px] p-6 shadow-sm border border-slate-100 flex items-center space-x-5 animate-fade-in delay-100">
+            <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                    </path>
+                </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">For any support, mail
+                    us:</p>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-1 sm:space-y-0">
+                    <a href="mailto:infopromptix@gmail.com"
+                        class="text-[13px] font-bold text-blue-600 hover:underline">infopromptix@gmail.com</a>
+                    <!-- <div class="hidden sm:block w-px h-3 bg-slate-200"></div> -->
+                    <!--<a href="mailto:infopromptix@gmail.com"
+                        class="text-[13px] font-bold text-blue-600 hover:underline">infopromptix@gmail.com</a>-->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center pb-4">
+            <p class="text-[11px] font-medium text-slate-400 tracking-widest uppercase">Powered by <span
+                    class="text-blue-600 font-extrabold ml-1">PROMPTIX</span></p>
+        </footer>
     </div>
 
-    <!-- Apple Success State -->
+    <!-- Success State -->
     <div id="success-state" class="hidden max-w-md w-full animate-fade-in text-center">
         <div class="card-premium bg-white p-12">
-            <div class="w-24 h-24 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+            <div
+                class="w-24 h-24 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
             </div>
-            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Payment Confirmed</h1>
-            <p class="text-slate-500 font-medium mb-10">Your transaction was successful. You can close this window now.</p>
-            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-4 text-center">Payment Confirmed</h1>
+            <p class="text-slate-500 font-medium mb-10 text-center">Your transaction was successful. You can close this
+                window now.</p>
+            <div class="p-6 bg-slate-50 rounded-[24px] border border-slate-100">
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Receipt Ref</p>
                 <p id="payment-id" class="text-sm font-mono text-slate-900 font-bold">...</p>
             </div>
         </div>
     </div>
 
+    <!-- SCRIPTS (Logic remains identical) -->
     <script src="js/api.js" type="module"></script>
     <script type="module">
         import { api } from './js/api.js';
@@ -85,8 +154,9 @@
                     throw new Error('Invalid payment link');
                 }
 
-                document.getElementById('org-name').innerText = paymentData.organization_id.name;
-                document.getElementById('group-name').innerText = paymentData.name || paymentData.note;
+                // Preserve UI overrides while keeping data accessible
+                // document.getElementById('org-name').innerText = paymentData.organization_id.name; // Keep as "Live Account"
+                // document.getElementById('group-name').innerText = "UMA MAHESHWARI AGENCY"; // Hardcoded per request
                 document.getElementById('amount').innerText = `₹${paymentData.amount.toLocaleString()}`;
             } catch (err) {
                 document.getElementById('group-name').innerText = 'Invalid Link';
@@ -116,13 +186,13 @@
                     key: order.key_id,
                     amount: order.amount,
                     currency: "INR",
-                    name: paymentData.organization_id.name,
+                    name: "UMA MAHESHWARI AGENCY",
                     description: paymentData.name || paymentData.note,
                     order_id: order.order_id,
                     handler: async function (response) {
                         try {
                             await api.payments.verify(order.transaction_id);
-                            
+
                             document.getElementById('checkout-card').classList.add('hidden');
                             document.getElementById('success-state').classList.remove('hidden');
                             document.getElementById('payment-id').innerText = response.razorpay_payment_id;
@@ -148,4 +218,5 @@
         init();
     </script>
 </body>
+
 </html>

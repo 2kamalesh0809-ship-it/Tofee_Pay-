@@ -19,33 +19,44 @@
                     PROMPTIX Pay
                 </a>
                 <div class="hidden md:flex space-x-6">
-                    <a href="#features" class="text-[13px] font-medium text-slate-500 hover:text-blue-600 transition">Features</a>
-                    <a href="#about" class="text-[13px] font-medium text-slate-500 hover:text-blue-600 transition">About</a>
+                    <a href="#features"
+                        class="text-[13px] font-medium text-slate-500 hover:text-blue-600 transition">Features</a>
+                    <a href="#about"
+                        class="text-[13px] font-medium text-slate-500 hover:text-blue-600 transition">About</a>
                 </div>
             </div>
             <div class="flex items-center space-x-4">
                 <div class="hidden sm:flex items-center space-x-4">
-                    <a href="login.html" class="text-[13px] font-medium text-slate-600 hover:text-slate-900 transition">Log In</a>
+                    <a href="login.html"
+                        class="text-[13px] font-medium text-slate-600 hover:text-slate-900 transition">Log In</a>
                     <a href="register.html" class="btn-premium text-[13px] px-5 py-1.5 shadow-none">Get Started</a>
                 </div>
                 <!-- Mobile Hamburger -->
                 <button onclick="toggleMobileMenu()" class="sm:hidden text-slate-900 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
                 </button>
             </div>
         </div>
     </nav>
 
     <!-- Mobile Navigation Menu -->
-    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-white transform translate-x-full transition-transform duration-300 ease-in-out sm:hidden">
+    <div id="mobile-menu"
+        class="fixed inset-0 z-[60] bg-white transform translate-x-full transition-transform duration-300 ease-in-out sm:hidden">
         <div class="h-14 px-6 flex items-center justify-between border-b border-slate-100">
             <span class="text-xl font-bold tracking-tight text-slate-900">Menu</span>
             <button onclick="toggleMobileMenu()" class="text-slate-900">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
             </button>
         </div>
         <div class="p-8 space-y-6">
-            <a href="#features" onclick="toggleMobileMenu()" class="block text-2xl font-bold text-slate-900">Features</a>
+            <a href="#features" onclick="toggleMobileMenu()"
+                class="block text-2xl font-bold text-slate-900">Features</a>
             <a href="#about" onclick="toggleMobileMenu()" class="block text-2xl font-bold text-slate-900">About</a>
             <a href="login.html" class="block text-2xl font-bold text-slate-900">Log In</a>
             <a href="register.html" class="block btn-premium text-lg py-4 w-full">Get Started Free</a>
@@ -126,21 +137,248 @@
         </div>
     </section>
 
+    <!-- Simple Pricing -->
+    <section id="pricing" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Simple, Transparent Pricing</h2>
+            <p class="text-slate-500 text-lg font-medium mb-16 max-w-2xl mx-auto">Choose the plan that fits your
+                community size. No hidden fees.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Starter -->
+                <div class="card-premium p-10 bg-white border-slate-100 flex flex-col items-center">
+                    <span class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Starter</span>
+                    <div class="text-5xl font-black text-slate-900 mb-2">₹0<span
+                            class="text-lg text-slate-400">/mo</span></div>
+                    <p class="text-sm text-slate-500 mb-8 font-medium">Up to 50 members</p>
+                    <ul class="text-left space-y-4 mb-10 w-full">
+                        <li class="flex items-center text-sm font-medium text-slate-600">
+                            <svg class="w-4 h-4 text-emerald-500 mr-3" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Basic Dashboard
+                        </li>
+                        <li class="flex items-center text-sm font-medium text-slate-600">
+                            <svg class="w-4 h-4 text-emerald-500 mr-3" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Single Payment Link
+                        </li>
+                    </ul>
+                    <a href="register.html" class="btn-secondary w-full py-4 text-sm font-bold">Get Started</a>
+                </div>
+
+                <!-- Pro -->
+                <div
+                    class="card-premium p-10 bg-white border-blue-100 shadow-xl scale-105 relative flex flex-col items-center">
+                    <div
+                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">
+                        Most Popular</div>
+                    <span class="text-xs font-black uppercase tracking-widest text-blue-600 mb-4">Professional</span>
+                    <div class="text-5xl font-black text-slate-900 mb-2">₹999<span
+                            class="text-lg text-slate-400">/mo</span></div>
+                    <p class="text-sm text-slate-500 mb-8 font-medium">Up to 500 members</p>
+                    <ul class="text-left space-y-4 mb-10 w-full">
+                        <li class="flex items-center text-sm font-medium text-slate-600">
+                            <svg class="w-4 h-4 text-emerald-500 mr-3" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Unlimited Links
+                        </li>
+                        <li class="flex items-center text-sm font-medium text-slate-600">
+                            <svg class="w-4 h-4 text-emerald-500 mr-3" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Group Analytics
+                        </li>
+                        <li class="flex items-center text-sm font-medium text-slate-600">
+                            <svg class="w-4 h-4 text-emerald-500 mr-3" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Priority Support
+                        </li>
+                    </ul>
+                    <a href="register.html" class="btn-premium w-full py-4 text-sm font-bold shadow-lg">Start Free
+                        Trial</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="card-premium p-10 bg-white border-slate-100 flex flex-col items-center">
+                    <span class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Enterprise</span>
+                    <div class="text-5xl font-black text-slate-900 mb-2">Custom</div>
+                    <p class="text-sm text-slate-500 mb-8 font-medium">Unlimited members</p>
+                    <ul class="text-left space-y-4 mb-10 w-full">
+                        <li class="flex items-center text-sm font-medium text-slate-600">
+                            <svg class="w-4 h-4 text-emerald-500 mr-3" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Custom Domain
+                        </li>
+                        <li class="flex items-center text-sm font-medium text-slate-600">
+                            <svg class="w-4 h-4 text-emerald-500 mr-3" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            24/7 Account Manager
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn-secondary w-full py-4 text-sm font-bold">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 bg-[#FBFBFD]">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            <div>
+                <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-6">Let's Connect</h2>
+                <p class="text-slate-500 text-lg font-medium mb-12">Have questions about PROMPTIX PAY? Our team is here
+                    to help you get started with the most minimal payment collection system.</p>
+
+                <div class="space-y-8">
+                    <div class="flex items-center">
+                        <div
+                            class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-slate-100 mr-6">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Email Support
+                            </div>
+                            <div class="text-slate-900 font-bold">support@promptix.tech</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div
+                            class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-slate-100 mr-6">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Location</div>
+                            <div class="text-slate-900 font-bold">Chennai, India</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-premium p-10 bg-white shadow-2xl">
+                <form id="contact-form" class="space-y-6">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label
+                                class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Name</label>
+                            <input type="text" class="input-premium py-3" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Email</label>
+                            <input type="email" class="input-premium py-3" placeholder="Your Email">
+                        </div>
+                    </div>
+                    <div>
+                        <label
+                            class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Message</label>
+                        <textarea class="input-premium py-3 min-h-[120px]" placeholder="How can we help?"></textarea>
+                    </div>
+                    <button type="submit" class="btn-premium w-full py-4 text-sm font-bold">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Simple Footer -->
     <footer class="py-20 px-6 border-t border-slate-100">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
-            <p class="text-slate-400 text-sm font-medium">© 2026 PROMPTIX PAY. <span class="text-slate-600 font-bold ml-1">POWERED BY PROMPTIX</span></p>
-            <div class="flex space-x-8 mt-6 md:mt-0">
-                <a href="#" class="text-slate-400 hover:text-slate-900 text-sm font-medium transition">Privacy</a>
-                <a href="#" class="text-slate-400 hover:text-slate-900 text-sm font-medium transition">Terms</a>
+            <p class="text-slate-400 text-sm font-medium">© 2026 PROMPTIX PAY. <span
+                    class="text-slate-600 font-bold ml-1">POWERED BY PROMPTIX</span></p>
+            <div class="flex flex-wrap justify-center gap-6 mt-6 md:mt-0">
+                <a href="privacy.html"
+                    class="text-slate-400 hover:text-slate-900 text-xs font-medium transition">Privacy Policy</a>
+                <a href="terms.html" class="text-slate-400 hover:text-slate-900 text-xs font-medium transition">Terms &
+                    Conditions</a>
+                <a href="refund.html" class="text-slate-400 hover:text-slate-900 text-xs font-medium transition">Refund
+                    Policy</a>
+                <a href="#contact" class="text-slate-400 hover:text-slate-900 text-xs font-medium transition">Contact
+                    Us</a>
             </div>
         </div>
     </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-slate-900/10 backdrop-blur-sm">
+        <div class="bg-white rounded-[32px] p-8 max-w-sm w-full shadow-2xl text-center transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+            <div class="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">Message Sent!</h3>
+            <p class="text-slate-500 font-medium mb-8 leading-relaxed">Thank you for reaching out. Our team will contact you ASAP.</p>
+            <button onclick="closeModal()" class="btn-premium w-full py-4 text-sm font-bold shadow-lg rounded-2xl">Great, Thanks!</button>
+        </div>
+    </div>
 
     <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('translate-x-full');
+        }
+
+        // Contact Form Logic
+        const contactForm = document.getElementById('contact-form');
+        const modal = document.getElementById('success-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show Modal
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                
+                // Trigger Animation
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+
+                // Reset Form
+                this.reset();
+            });
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
         }
     </script>
 </body>
