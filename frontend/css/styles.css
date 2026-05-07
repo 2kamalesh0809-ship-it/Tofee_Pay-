@@ -480,6 +480,10 @@ body {
     }
 }
 
+.logo-blend {
+    mix-blend-mode: multiply;
+}
+
 /* Sidebar Toggle Animation */
 .overlay {
     position: fixed;
