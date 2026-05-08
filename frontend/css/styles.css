@@ -1,5 +1,5 @@
 /* PROMPTIX PAY - Apple-Inspired Minimalist Design System */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=Dancing+Script:wght@600&display=swap');
 
 :root {
     --primary: #0071E3; /* Apple Blue */
@@ -22,6 +22,35 @@ body {
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Luxury Fintech Branding */
+.brand-promptix {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-main);
+}
+
+.brand-pay {
+    font-family: 'Dancing Script', cursive;
+    background: linear-gradient(135deg, #4F46E5 0%, #9333EA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    font-size: 1.2em;
+    margin-left: 2px;
+    font-weight: 600;
+}
+
+.logo-startup {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
+}
+
+.logo-startup:hover {
+    transform: translateY(-3px) scale(1.08) rotate(2deg);
 }
 
 /* Apple-Style Buttons */
