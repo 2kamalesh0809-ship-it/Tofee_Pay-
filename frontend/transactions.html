@@ -14,16 +14,15 @@
     <div id="sidebar-overlay" class="overlay" onclick="toggleSidebar()"></div>
 
     <!-- Apple Minimal Sidebar -->
-    <aside id="main-sidebar" class="w-64 bg-white border-r border-[#D2D2D7]/30 flex-shrink-0 flex flex-col pt-8">
-        <div class="px-8 mb-10 flex items-center justify-between">
-            <span class="text-lg font-extrabold tracking-tight text-slate-900 flex items-center">
-                <img src="assets/logo.png" class="w-6 h-6 mr-2 object-contain logo-blend" alt="PROMPTIX PAY">
-                PROMPTIX PAY
-            </span>
+    <aside id="main-sidebar" class="w-80 bg-white border-r border-[#D2D2D7]/30 flex-shrink-0 flex flex-col pt-8">
+        <a href="https://promptix.pro/" class="px-8 mb-10 flex items-center justify-between group no-underline hover:opacity-90 transition-all">
+            <div class="flex items-center">
+                <img src="assets/branding.png" class="branding-sidebar" alt="PROMPTIX PAY" onerror="this.src='assets/logo.png';">
+            </div>
             <button onclick="toggleSidebar()" class="mobile-nav-toggle lg:hidden">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-        </div>
+        </a>
         
         <nav class="flex-1 px-4 space-y-0.5">
             <a href="dashboard.html" class="sidebar-item">
@@ -141,35 +140,35 @@
                 list.innerHTML = transactions.map(tr => `
                     <tr class="hover:bg-slate-50/50 transition">
                         <td class="px-8 py-5" data-label="Type">
-                            <div class="flex flex-col items-end">
-                                <div class="font-semibold text-slate-900 text-sm">Quick Collect</div>
-                                <div class="text-[10px] text-slate-400 font-bold tracking-widest mt-0.5 uppercase">Ref: ${tr.gateway_order_id || 'LOCAL'}</div>
+                            <div class="flex flex-col items-end sm:items-start">
+                                <div class="font-bold text-slate-900 text-sm">Quick Collect</div>
+                                <div class="text-[10px] text-slate-400 font-bold tracking-widest mt-1 uppercase">Ref: ${tr.gateway_order_id || 'LOCAL'}</div>
                             </div>
                         </td>
                         <td class="px-8 py-5" data-label="Source">
-                            <div class="flex flex-col items-end">
-                                <span class="status-badge bg-slate-50 text-slate-500">
-                                    ${tr.group_id?.name || 'Direct Collection'}
+                            <div class="flex flex-col items-end sm:items-start">
+                                <span class="status-badge bg-slate-50 text-slate-500 font-bold uppercase tracking-tighter">
+                                    ${tr.group_id?.name || 'Direct'}
                                 </span>
                             </div>
                         </td>
-                        <td class="px-8 py-5 font-semibold text-slate-700" data-label="Customer">
-                            <div class="flex flex-col items-end">
-                                ${tr.member_id?.name || tr.customer_name || 'Guest'}
-                                ${tr.customer_phone ? `<div class="text-[9px] text-blue-500 font-bold mt-0.5">${tr.customer_phone}</div>` : ''}
+                        <td class="px-8 py-5 font-bold text-slate-900" data-label="Customer">
+                            <div class="flex flex-col items-end sm:items-start">
+                                <span class="text-sm font-black">${tr.member_id?.name || tr.customer_name || 'Guest'}</span>
+                                ${tr.customer_phone ? `<div class="text-[10px] text-blue-500 font-bold mt-1 tracking-tight">${tr.customer_phone}</div>` : ''}
                             </div>
                         </td>
-                        <td class="px-8 py-5 font-black text-slate-900" data-label="Amount">
-                            <div class="flex flex-col items-end">
-                                <span>₹${tr.amount.toLocaleString()}</span>
+                        <td class="px-8 py-5" data-label="Amount">
+                            <div class="flex flex-col items-end sm:items-start">
+                                <span class="text-lg font-black">₹${tr.amount.toLocaleString()}</span>
                             </div>
                         </td>
                         <td class="px-8 py-5" data-label="Result">
-                            <div class="flex flex-col items-end">
+                            <div class="flex flex-col items-end sm:items-start">
                                 <div class="flex items-center space-x-3">
-                                    <span class="status-badge ${tr.payment_status === 'paid' ? 'bg-emerald-50 text-emerald-600' :
-                        tr.payment_status === 'pending' ? 'bg-amber-50 text-amber-600' :
-                            'bg-rose-50 text-rose-600'
+                                    <span class="status-badge px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${tr.payment_status === 'paid' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                        tr.payment_status === 'pending' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
+                            'bg-rose-500/10 text-rose-400 border border-rose-500/20'
                     }">${tr.payment_status}</span>
                                     ${tr.payment_status === 'pending' ? `
                                         <button onclick="verifyTransaction('${tr._id}')" class="text-blue-600 hover:text-blue-800 text-[10px] font-black uppercase tracking-widest underline transition">Verify</button>
@@ -177,9 +176,10 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="px-8 py-5 text-slate-400 text-xs font-medium text-right" data-label="Date">
-                            <div class="flex flex-col items-end">
-                                <span>${new Date(tr.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</span>
+                        <td class="px-8 py-5 text-right" data-label="Date">
+                            <div class="flex flex-col items-end sm:items-start">
+                                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-tight">${new Date(tr.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                                <span class="text-[10px] font-medium text-slate-300 mt-0.5">${new Date(tr.created_at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                             </div>
                         </td>
                     </tr>

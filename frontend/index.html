@@ -11,19 +11,19 @@
 
 <body class="bg-white text-slate-900 font-sans selection:bg-blue-100">
     <!-- Apple Frosted Navbar -->
-    <nav class="fixed top-0 w-full z-50 glass h-32 flex items-center">
-        <div class="max-w-6xl mx-auto px-6 w-full flex items-center justify-between">
-            <div class="flex items-center space-x-8">
-                <a href="https://promptix.pro/" class="flex items-center group">
-                    <img src="assets/logo.png" class="w-24 h-24 mr-6 object-contain logo-startup" alt="PROMPTIX">
-                    <span class="text-5xl brand-promptix">PROMPTIX</span>
-                    <span class="brand-pay text-4xl">Pay</span>
-                </a>
-                <div class="hidden md:flex space-x-6">
+        <nav class="glass fixed w-full z-50 transition-all duration-300 h-64 flex items-center">
+            <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between w-full">
+                <div class="flex items-center">
+                    <a href="https://promptix.pro/" class="flex items-center">
+                        <img src="assets/branding.png" class="branding-main" alt="PROMPTIX PAY" onerror="this.src='assets/logo.png';">
+                    </a>
+                <div class="hidden md:flex space-x-6 ml-12">
                     <a href="#features"
                         class="text-[13px] font-medium text-slate-500 hover:text-blue-600 transition">Features</a>
-                    <a href="#about"
-                        class="text-[13px] font-medium text-slate-500 hover:text-blue-600 transition">About</a>
+                    <a href="#security"
+                        class="text-[13px] font-medium text-slate-500 hover:text-blue-600 transition">Security</a>
+                    <a href="login.html"
+                        class="text-[13px] font-medium text-slate-500 hover:text-blue-600 transition">Dashboard</a>
                 </div>
             </div>
             <div class="flex items-center space-x-4">
@@ -47,11 +47,9 @@
     <div id="mobile-menu"
         class="fixed inset-0 z-[60] bg-white transform translate-x-full transition-transform duration-300 ease-in-out sm:hidden">
         <div class="h-14 px-6 flex items-center justify-between border-b border-slate-100">
-            <div class="flex items-center">
-                <img src="assets/logo.png" class="w-20 h-20 mr-4 object-contain logo-startup" alt="PROMPTIX">
-                <span class="text-3xl brand-promptix">PROMPTIX</span>
-                <span class="brand-pay text-2xl">Pay</span>
-            </div>
+                <a href="https://promptix.pro/" class="flex items-center">
+                    <img src="assets/branding.png" class="branding-main" alt="PROMPTIX PAY" onerror="this.src='assets/logo.png';">
+                </a>
             <button onclick="toggleMobileMenu()" class="text-slate-900">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -69,7 +67,7 @@
     </div>
 
     <!-- Minimal Hero -->
-    <section class="pt-64 pb-20 px-6">
+    <main class="pt-64 pb-20 px-6">
         <div class="max-w-4xl mx-auto text-center animate-fade-in">
             <h1 class="text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-8">
                 Simple. Powerful.<br>
@@ -320,13 +318,9 @@
             <div class="flex flex-col items-center md:items-start space-y-6">
                 <p class="text-slate-400 text-sm font-medium">© 2026 PROMPTIX PAY.</p>
                 <div class="flex flex-col items-center md:items-start">
-                    <span class="text-[10px] font-bold text-slate-300 tracking-[0.3em] uppercase mb-4">Powered by</span>
+                    <span class="text-[10px] font-bold text-slate-300 tracking-[0.3em] uppercase mb-6">Powered by</span>
                     <a href="https://promptix.pro/" class="hover:opacity-80 transition-opacity flex items-center">
-                        <img src="assets/logo.png" class="h-20 w-auto object-contain logo-startup mr-4" alt="PROMPTIX">
-                        <div class="flex items-center">
-                            <span class="text-4xl brand-promptix">PROMPTIX</span>
-                            <span class="brand-pay text-3xl">Pay</span>
-                        </div>
+                        <img src="assets/branding.png" class="branding-footer" alt="PROMPTIX PAY" onerror="this.src='assets/logo.png';">
                     </a>
                 </div>
             </div>

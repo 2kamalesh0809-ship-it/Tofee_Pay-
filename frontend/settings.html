@@ -14,16 +14,15 @@
     <div id="sidebar-overlay" class="overlay" onclick="toggleSidebar()"></div>
 
     <!-- Apple Minimal Sidebar -->
-    <aside id="main-sidebar" class="w-64 bg-white border-r border-[#D2D2D7]/30 flex-shrink-0 flex flex-col pt-8">
-        <div class="px-8 mb-10 flex items-center justify-between">
-            <span class="text-lg font-extrabold tracking-tight text-slate-900 flex items-center">
-                <img src="assets/logo.png" class="w-6 h-6 mr-2 object-contain logo-blend" alt="PROMPTIX PAY">
-                PROMPTIX PAY
-            </span>
+    <aside id="main-sidebar" class="w-80 bg-white border-r border-[#D2D2D7]/30 flex-shrink-0 flex flex-col pt-8">
+        <a href="https://promptix.pro/" class="px-8 mb-10 flex items-center justify-between group no-underline hover:opacity-90 transition-all">
+            <div class="flex items-center">
+                <img src="assets/branding.png" class="branding-sidebar" alt="PROMPTIX PAY" onerror="this.src='assets/logo.png';">
+            </div>
             <button onclick="toggleSidebar()" class="mobile-nav-toggle lg:hidden">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-        </div>
+        </a>
         
         <nav class="flex-1 px-4 space-y-0.5">
             <a href="dashboard.html" class="sidebar-item">
@@ -119,9 +118,17 @@
                             <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Key ID</label>
                             <input type="text" id="razorpay_key_id" required class="input-premium font-mono text-sm" placeholder="rzp_live_...">
                         </div>
-                        <div>
+                        <div class="relative group">
                             <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Key Secret</label>
-                            <input type="password" id="razorpay_key_secret" required class="input-premium font-mono text-sm" placeholder="••••••••••••••••">
+                            <div class="relative">
+                                <input type="password" id="razorpay_key_secret" required class="input-premium font-mono text-sm pr-12" placeholder="••••••••••••••••">
+                                <button type="button" id="toggle-secret" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-blue-600 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                         <div class="pt-6 border-t border-slate-50">
                             <button type="submit" class="btn-premium px-8 py-3 bg-slate-900 shadow-none">Update Credentials</button>
@@ -220,6 +227,21 @@
                 await api.organizations.updateRazorpay(payload);
                 showToast('Razorpay credentials updated');
                 loadProfile();
+
+        // Toggle Secret Visibility
+        const secretInput = document.getElementById('razorpay_key_secret');
+        const toggleSecretBtn = document.getElementById('toggle-secret');
+
+        toggleSecretBtn.addEventListener('click', () => {
+            const isPassword = secretInput.type === 'password';
+            secretInput.type = isPassword ? 'text' : 'password';
+            
+            if (isPassword) {
+                toggleSecretBtn.classList.add('text-blue-600');
+            } else {
+                toggleSecretBtn.classList.remove('text-blue-600');
+            }
+        });
             } catch (err) {
                 showToast(err.message);
             }

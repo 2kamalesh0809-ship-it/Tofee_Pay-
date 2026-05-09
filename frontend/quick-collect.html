@@ -14,16 +14,15 @@
     <div id="sidebar-overlay" class="overlay" onclick="toggleSidebar()"></div>
 
     <!-- Apple Minimal Sidebar -->
-    <aside id="main-sidebar" class="w-64 bg-white border-r border-[#D2D2D7]/30 flex-shrink-0 flex flex-col pt-8">
-        <div class="px-8 mb-10 flex items-center justify-between">
-            <span class="text-lg font-extrabold tracking-tight text-slate-900 flex items-center">
-                <img src="assets/logo.png" class="w-6 h-6 mr-2 object-contain logo-blend" alt="PROMPTIX PAY">
-                PROMPTIX PAY
-            </span>
+    <aside id="main-sidebar" class="w-80 bg-white border-r border-[#D2D2D7]/30 flex-shrink-0 flex flex-col pt-8">
+        <a href="https://promptix.pro/" class="px-8 mb-10 flex items-center justify-between group no-underline hover:opacity-90 transition-all">
+            <div class="flex items-center">
+                <img src="assets/branding.png" class="branding-sidebar" alt="PROMPTIX PAY" onerror="this.src='assets/logo.png';">
+            </div>
             <button onclick="toggleSidebar()" class="mobile-nav-toggle lg:hidden">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-        </div>
+        </a>
         
         <nav class="flex-1 px-4 space-y-0.5">
             <a href="dashboard.html" class="sidebar-item">
@@ -63,16 +62,18 @@
     <!-- Main Content -->
     <main class="flex-1 flex flex-col overflow-hidden">
         <!-- Apple Glass Header -->
-        <header class="h-16 glass flex items-center justify-between px-10 flex-shrink-0 z-10">
-            <div class="flex items-center">
-                <button onclick="toggleSidebar()" class="mobile-nav-toggle lg:hidden mr-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        <header class="h-16 glass flex items-center px-10 flex-shrink-0 z-10">
+            <div class="flex items-center justify-between w-full">
+                <div class="flex items-center">
+                    <button onclick="toggleSidebar()" class="mobile-nav-toggle lg:hidden mr-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                    <h2 class="text-xl font-bold text-slate-900 tracking-tight">Quick Collect</h2>
+                </div>
+                <button onclick="toggleModal('link-modal')" class="btn-premium px-6 py-2 shadow-none">
+                    + Generate Link
                 </button>
-                <h2 class="text-xl font-bold text-slate-900 tracking-tight">Quick Collect</h2>
             </div>
-            <button onclick="toggleModal('link-modal')" class="btn-premium px-6 py-2">
-                + Generate Link
-            </button>
         </header>
 
         <!-- Content Area -->
