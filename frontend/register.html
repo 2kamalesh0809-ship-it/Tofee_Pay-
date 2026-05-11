@@ -68,8 +68,25 @@
         import { api } from './js/api.js';
         import { login } from './js/auth.js';
 
-        document.getElementById('register-form').onsubmit = async (e) => {
+        const registerForm = document.getElementById('register-form');
+        const registerBtn = registerForm.querySelector('button[type="submit"]');
+
+        registerForm.onsubmit = async (e) => {
             e.preventDefault();
+
+            // 1. Prevent double-click & show loading state
+            registerBtn.disabled = true;
+            const originalBtnText = registerBtn.innerHTML;
+            registerBtn.innerHTML = `
+                <div class="flex items-center justify-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                </div>
+            `;
+
             const payload = {
                 name: document.getElementById('name').value,
                 organization_name: document.getElementById('organization_name').value,
@@ -79,10 +96,16 @@
             };
 
             try {
+                // 2. Proper async registration flow
                 const data = await api.auth.register(payload);
-                login(data.user, data.token);
+                
+                // 3. Ensure token/session is stored before redirect
+                await login(data.user, data.token);
             } catch (err) {
+                // 4. Reset UI on error
                 alert(err.message);
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = originalBtnText;
             }
         };
 

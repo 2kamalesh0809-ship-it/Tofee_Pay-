@@ -9,9 +9,17 @@ export function checkAuth() {
 }
 
 export function login(user, token) {
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
-    window.location.href = 'dashboard.html';
+    return new Promise((resolve) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+        
+        // Give the browser a moment to ensure persistence is locked in
+        // This prevents the "refresh required" issue on the dashboard
+        setTimeout(() => {
+            window.location.href = 'dashboard.html';
+            resolve();
+        }, 150); // Slightly increased for extra stability in live environments
+    });
 }
 
 export function logout() {
