@@ -16,6 +16,10 @@ const webhookRoutes = require('./routes/webhooks');
 
 const app = express();
 
+// Serve static files from the frontend directory
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -44,33 +44,34 @@ body {
     font-weight: 600;
 }
 
-/* Colossal Premium Branding */
+/* Signature Bold Premium Branding */
 .branding-main {
-    height: 220px !important;
-    max-height: 220px !important;
+    height: 110px !important;
+    max-height: 110px !important;
     width: auto !important;
     object-fit: contain !important;
     transition: transform 0.3s ease;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.05));
 }
 
 .branding-sidebar {
+    height: 90px !important;
+    max-height: 90px !important;
+    width: auto !important;
+    object-fit: contain !important;
+}
+
+.branding-footer {
     height: 120px !important;
     max-height: 120px !important;
     width: auto !important;
     object-fit: contain !important;
 }
 
-.branding-footer {
-    height: 180px !important;
-    max-height: 180px !important;
-    width: auto !important;
-    object-fit: contain !important;
-}
-
 @media (max-width: 768px) {
     .branding-main {
-        height: 140px !important;
-        max-height: 140px !important;
+        height: 85px !important;
+        max-height: 85px !important;
     }
 }
 
@@ -570,9 +571,9 @@ body {
         flex-shrink: 0;
     }
 
-    /* Target values and their children */
-    td > div, td > span, td > button, td > a,
-    td div, td span {
+    /* Target values and their children (Excluding Badges) */
+    td > div, td > span:not(.status-badge), td > button, td > a,
+    td div, td span:not(.status-badge) {
         text-align: right !important;
         align-items: flex-end !important;
         color: #F8FAFC !important;
