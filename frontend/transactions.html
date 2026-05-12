@@ -65,13 +65,17 @@
         <header class="h-16 glass flex items-center justify-between px-10 flex-shrink-0 z-10">
             <div class="flex items-center">
                 <button onclick="toggleSidebar()" class="mobile-nav-toggle lg:hidden mr-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                        </path>
+                    </svg>
                 </button>
-                <h2 class="text-xl font-bold text-slate-900 tracking-tight">Audit Log</h2>
+                <h2 class="audit-title text-xl font-bold text-slate-900 tracking-tight">Audit Log</h2>
             </div>
-            <div class="flex items-center space-x-3">
-                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Status:</span>
-                <select id="status-filter" class="bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs font-bold text-slate-600 outline-none focus:border-blue-600 transition uppercase tracking-wider">
+            <div class="audit-filter flex items-center space-x-3">
+                <span class="filter-label text-[10px] font-black text-slate-400 uppercase tracking-widest">Status:</span>
+                <select id="status-filter"
+                    class="bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs font-bold text-slate-600 outline-none focus:border-blue-600 transition uppercase tracking-wider">
                     <option value="">All Transactions</option>
                     <option value="paid">Paid</option>
                     <option value="pending">Pending</option>
