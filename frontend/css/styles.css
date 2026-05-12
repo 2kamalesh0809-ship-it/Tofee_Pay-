@@ -427,21 +427,19 @@ body {
         font-size: 16px !important; /* Prevents auto-zoom on iOS */
     }
 
-    /* Neater Header & Action Spacing on Mobile */
+    /* Locked Header Alignment on Mobile */
     header {
-        height: auto !important;
-        padding-top: 16px !important;
-        padding-bottom: 16px !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 12px !important;
+        height: 64px !important; /* Fixed height for consistency */
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
     }
 
-    header .flex.items-center.space-x-3 {
-        width: 100%;
-        justify-content: space-between;
-        padding-top: 8px;
-        border-top: 1px solid rgba(0,0,0,0.03);
+    header .flex.items-center {
+        justify-content: flex-start !important;
     }
 
     header .btn-premium {
