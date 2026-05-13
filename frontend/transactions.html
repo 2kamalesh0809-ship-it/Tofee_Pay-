@@ -62,7 +62,7 @@
     <!-- Main Content -->
     <main class="flex-1 flex flex-col overflow-hidden">
         <!-- Apple Glass Header -->
-        <header class="h-16 glass flex items-center justify-between px-10 flex-shrink-0 z-10">
+        <header class="audit-header h-16 glass flex items-center justify-between px-10 flex-shrink-0 z-10">
             <div class="flex items-center">
                 <button onclick="toggleSidebar()" class="mobile-nav-toggle lg:hidden mr-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,6 +73,10 @@
                 <h2 class="audit-title text-xl font-bold text-slate-900 tracking-tight">Audit Log</h2>
             </div>
             <div class="audit-filter flex items-center space-x-3">
+                <button onclick="window.exportToExcel()"
+                    class="btn-premium flex items-center space-x-2 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest bg-emerald-600 hover:bg-emerald-700 border-none shadow-sm transition-all active:scale-95">
+                    <span>📊 Export Excel</span>
+                </button>
                 <span class="filter-label text-[10px] font-black text-slate-400 uppercase tracking-widest">Status:</span>
                 <select id="status-filter"
                     class="bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs font-bold text-slate-600 outline-none focus:border-blue-600 transition uppercase tracking-wider">
@@ -108,6 +112,7 @@
         </div>
     </main>
 
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
     <script src="js/api.js" type="module"></script>
     <script src="js/auth.js" type="module"></script>
     <script type="module">
@@ -116,6 +121,9 @@
 
         requireAuth();
         document.getElementById('logout-btn').onclick = logout;
+
+        // Global storage for current filtered transactions
+        let currentTransactions = [];
 
         // --- RESPONSIVE SIDEBAR TOGGLE ---
         window.toggleSidebar = () => {
@@ -128,12 +136,53 @@
         const statusFilter = document.getElementById('status-filter');
         statusFilter.onchange = loadTransactions;
 
+        // --- EXCEL EXPORT LOGIC ---
+        window.exportToExcel = () => {
+            if (!currentTransactions || currentTransactions.length === 0) {
+                alert("No transactions available to export.");
+                return;
+            }
+
+            // Prepare data for Excel
+            const exportData = currentTransactions.map(tr => {
+                const dateObj = new Date(tr.created_at);
+                return {
+                    "Transaction Type": "Quick Collect",
+                    "Reference ID": tr.gateway_order_id || tr.razorpay_payment_id || 'LOCAL',
+                    "Source Group": tr.group_id?.name || 'Direct',
+                    "Customer Name": tr.member_id?.name || tr.customer_name || 'Guest',
+                    "Customer Phone": tr.customer_phone || '-',
+                    "Business Category": tr.business_category || '-',
+                    "Business Name": tr.business_name || '-',
+                    "Amount": tr.amount,
+                    "Payment Status": tr.payment_status.toUpperCase(),
+                    "Processed Date": dateObj.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }),
+                    "Processed Time": dateObj.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })
+                };
+            });
+
+            // Generate Worksheet
+            const ws = XLSX.utils.json_to_sheet(exportData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Transactions");
+
+            // Generate Filename with YYYY-MM-DD
+            const now = new Date();
+            const dateStr = now.toISOString().split('T')[0];
+            const filename = `transactions-export-${dateStr}.xlsx`;
+
+            // Download
+            XLSX.writeFile(wb, filename);
+        };
+
         async function loadTransactions() {
             try {
                 const params = {};
                 if (statusFilter.value) params.status = statusFilter.value;
 
                 const transactions = await api.transactions.getAll(params);
+                currentTransactions = transactions; // Store for export
+
                 const list = document.getElementById('transactions-full-list');
 
                 if (transactions.length === 0) {

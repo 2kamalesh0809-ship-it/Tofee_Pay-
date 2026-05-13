@@ -450,25 +450,50 @@ body {
         font-size: 13px !important;
     }
 
-    /* Audit Log Mobile Refinement */
+    /* Audit Log Mobile Layout Optimization (3-Row Stack) */
+    header.audit-header {
+        height: auto !important;
+        flex-direction: column !important;
+        padding: 20px !important;
+        gap: 16px !important;
+        align-items: center !important;
+    }
+
+    header.audit-header .flex.items-center:first-child {
+        width: 100%;
+        justify-content: flex-start !important;
+    }
+
+    header.audit-header .audit-filter {
+        width: 100%;
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: center !important;
+    }
+
+    header.audit-header .audit-filter button {
+        width: 100% !important;
+        max-width: 220px !important;
+        margin: 0 auto !important;
+        justify-content: center !important;
+        min-height: 40px !important;
+    }
+
+    header.audit-header #status-filter {
+        width: 100% !important;
+        max-width: 220px !important;
+        height: 40px !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+    }
+
     .audit-title {
-        font-size: 17px !important; /* Refined compact size */
+        font-size: 18px !important;
         letter-spacing: -0.01em !important;
     }
 
-    .audit-filter {
-        gap: 6px !important;
-    }
-
-    .filter-label {
-        font-size: 8px !important;
-        display: none !important; /* Hide text label on mobile to save space */
-    }
-
-    #status-filter {
-        padding: 6px 12px !important;
-        font-size: 10px !important;
-        height: 32px !important;
+    header.audit-header .filter-label {
+        display: none !important;
     }
 
     /* Stack buttons in modals/forms on mobile - targeted at buttons */

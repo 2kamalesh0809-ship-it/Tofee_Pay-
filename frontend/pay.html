@@ -312,28 +312,48 @@
                                     });
 
                                     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1.0));
-                                    const file = new File([blob], 'payment-confirmation.png', { type: 'image/png' });
+                                    if (!blob) throw new Error("Blob generation failed");
+                                    
+                                    const file = new File([blob], `receipt-${response.razorpay_payment_id}.png`, { type: 'image/png' });
 
-                                    // WhatsApp Sharing Strategy (Direct & Reliable)
-                                    const whatsappNumber = "919025010403";
-                                    const shareText = "Payment Successfully Completed\n\nPlease verify my payment details attached below.";
-                                    const encodedMessage = encodeURIComponent(shareText);
-                                    const waUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                                    // Professional Share Message
+                                    const customerName = document.getElementById('cust_name').value;
+                                    const amountPaid = document.getElementById('amount').innerText;
+                                    const refId = response.razorpay_payment_id;
 
-                                    // 1. Download the Premium Receipt Card
-                                    const link = document.createElement('a');
-                                    link.href = canvas.toDataURL('image/png');
-                                    link.download = `payment-confirmation-${response.razorpay_payment_id}.png`;
-                                    link.click();
+                                    const shareText = `Here is my payment slip.\nPayment completed successfully.\n\nCustomer: ${customerName}\nAmount: ${amountPaid}\nReceipt Ref: ${refId}`;
 
-                                    // 2. Open WhatsApp immediately
-                                    window.open(waUrl, '_blank');
+                                    // Detect Mobile - native file share is much more stable on mobile OS
+                                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+                                    // Strategy: Native Share (Only if Mobile & Supported)
+                                    if (isMobile && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                                        try {
+                                            await navigator.share({
+                                                files: [file],
+                                                title: 'Payment Confirmation',
+                                                text: shareText
+                                            });
+                                        } catch (shareErr) {
+                                            // Handle Abort or OS-level failure silently
+                                            if (shareErr.name !== 'AbortError') {
+                                                console.warn('Native share failed, falling back to URL:', shareErr);
+                                                window.open(`https://wa.me/919025010403?text=${encodeURIComponent(shareText)}`, '_blank');
+                                            }
+                                        }
+                                    } else {
+                                        // Fallback: Direct WhatsApp for Desktop/Unsupported (Text only)
+                                        const whatsappNumber = "919025010403";
+                                        const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(shareText)}`;
+                                        window.open(waUrl, '_blank');
+                                    }
                                 } catch (err) {
-                                    console.error('Sharing failed:', err);
-                                    alert('Failed to generate sharing card. Redirecting to plain message.');
-                                    const whatsappNumber = "919025010403";
-                                    const shareText = "Payment Successfully Completed\n\nPlease verify my payment details attached below.";
-                                    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(shareText)}`, '_blank');
+                                    console.error('Sharing process failed:', err);
+                                    alert('Direct sharing works best on mobile devices. Redirecting to WhatsApp...');
+                                    const customerName = document.getElementById('cust_name').value;
+                                    const amountPaid = document.getElementById('amount').innerText;
+                                    const shareText = `Here is my payment slip.\nPayment completed successfully.\n\nCustomer: ${customerName}\nAmount: ${amountPaid}`;
+                                    window.open(`https://wa.me/919025010403?text=${encodeURIComponent(shareText)}`, '_blank');
                                 } finally {
                                     btn.disabled = false;
                                     spinner.classList.add('hidden');
