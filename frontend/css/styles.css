@@ -450,12 +450,12 @@ body {
         font-size: 13px !important;
     }
 
-    /* Audit Log Mobile Layout Optimization (3-Row Stack) */
+    /* Audit Log Mobile Layout Optimization (6-Row Stack) */
     header.audit-header {
         height: auto !important;
         flex-direction: column !important;
-        padding: 20px !important;
-        gap: 16px !important;
+        padding: 24px 20px !important;
+        gap: 20px !important;
         align-items: center !important;
     }
 
@@ -467,24 +467,65 @@ body {
     header.audit-header .audit-filter {
         width: 100%;
         flex-direction: column !important;
-        gap: 12px !important;
+        gap: 16px !important;
         align-items: center !important;
+        padding-bottom: 8px !important;
     }
 
-    header.audit-header .audit-filter button {
-        width: 100% !important;
-        max-width: 220px !important;
-        margin: 0 auto !important;
-        justify-content: center !important;
-        min-height: 40px !important;
+    header.audit-header .export-wrapper,
+    header.audit-header .status-wrapper,
+    header.audit-header .date-filter-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
     }
 
+    header.audit-header .export-wrapper button,
     header.audit-header #status-filter {
         width: 100% !important;
-        max-width: 220px !important;
-        height: 40px !important;
+        max-width: 240px !important;
+        height: 44px !important;
         margin: 0 auto !important;
-        text-align: center !important;
+        justify-content: center !important;
+    }
+
+    header.audit-header .date-range-capsule {
+        width: 100% !important;
+        max-width: 240px !important;
+        flex-direction: column !important;
+        padding: 16px !important;
+        border-radius: 16px !important;
+        gap: 12px !important;
+    }
+
+    header.audit-header .date-range-capsule .h-4.w-\[1px\] {
+        display: none !important;
+    }
+
+    header.audit-header .date-range-capsule .flex.items-center {
+        width: 100% !important;
+        justify-content: space-between !important;
+    }
+
+    header.audit-header .date-range-capsule input {
+        width: 150px !important;
+        text-align: right !important;
+        font-size: 13px !important;
+    }
+
+    header.audit-header .date-actions {
+        width: 100% !important;
+        max-width: 240px !important;
+        justify-content: center !important;
+        gap: 12px !important;
+    }
+
+    header.audit-header .date-actions button {
+        flex: 1 !important;
+        height: 50px !important;
+        font-size: 13px !important;
     }
 
     .audit-title {

@@ -318,10 +318,16 @@
 
                                     // Professional Share Message
                                     const customerName = document.getElementById('cust_name').value;
+                                    const customerPhone = document.getElementById('cust_phone').value;
                                     const amountPaid = document.getElementById('amount').innerText;
                                     const refId = response.razorpay_payment_id;
+                                    const bizName = "UMA MAHESHWARI AGENCY"; // Standardized branding
+                                    const bizCategory = paymentData.organization_id?.business_category || 'Payment Services';
 
-                                    const shareText = `Here is my payment slip.\nPayment completed successfully.\n\nCustomer: ${customerName}\nAmount: ${amountPaid}\nReceipt Ref: ${refId}`;
+                                    const shareText = `Hello,\n\nHere is my payment slip.\n\nCustomer:\n${customerName}\n\nPhone:\n${customerPhone}\n\nBusiness Category:\n${bizCategory}\n\nBusiness Name:\n${bizName}\n\nAmount Paid:\n${amountPaid}\n\nReference ID:\n${refId}\n\nPayment completed successfully.`;
+
+                                    // Target WhatsApp Contact
+                                    const targetWhatsApp = "919952481234";
 
                                     // Detect Mobile - native file share is much more stable on mobile OS
                                     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -338,13 +344,12 @@
                                             // Handle Abort or OS-level failure silently
                                             if (shareErr.name !== 'AbortError') {
                                                 console.warn('Native share failed, falling back to URL:', shareErr);
-                                                window.open(`https://wa.me/919025010403?text=${encodeURIComponent(shareText)}`, '_blank');
+                                                window.open(`https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(shareText)}`, '_blank');
                                             }
                                         }
                                     } else {
                                         // Fallback: Direct WhatsApp for Desktop/Unsupported (Text only)
-                                        const whatsappNumber = "919025010403";
-                                        const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(shareText)}`;
+                                        const waUrl = `https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(shareText)}`;
                                         window.open(waUrl, '_blank');
                                     }
                                 } catch (err) {

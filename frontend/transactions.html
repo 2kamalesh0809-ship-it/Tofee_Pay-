@@ -73,18 +73,42 @@
                 <h2 class="audit-title text-xl font-bold text-slate-900 tracking-tight">Audit Log</h2>
             </div>
             <div class="audit-filter flex items-center space-x-3">
-                <button onclick="window.exportToExcel()"
-                    class="btn-premium flex items-center space-x-2 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest bg-emerald-600 hover:bg-emerald-700 border-none shadow-sm transition-all active:scale-95">
-                    <span>📊 Export Excel</span>
-                </button>
-                <span class="filter-label text-[10px] font-black text-slate-400 uppercase tracking-widest">Status:</span>
-                <select id="status-filter"
-                    class="bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs font-bold text-slate-600 outline-none focus:border-blue-600 transition uppercase tracking-wider">
-                    <option value="">All Transactions</option>
-                    <option value="paid">Paid</option>
-                    <option value="pending">Pending</option>
-                    <option value="failed">Failed</option>
-                </select>
+                <div class="export-wrapper">
+                    <button onclick="window.exportToExcel()"
+                        class="btn-premium flex items-center space-x-2 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest bg-emerald-600 hover:bg-emerald-700 border-none shadow-sm transition-all active:scale-95">
+                        <span>📊 Export Excel</span>
+                    </button>
+                </div>
+
+                <div class="status-wrapper flex items-center space-x-2">
+                    <span class="filter-label text-[10px] font-black text-slate-400 uppercase tracking-widest">Status:</span>
+                    <select id="status-filter"
+                        class="bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs font-bold text-slate-600 outline-none focus:border-blue-600 transition uppercase tracking-wider">
+                        <option value="">All Transactions</option>
+                        <option value="paid">Paid</option>
+                        <option value="pending">Pending</option>
+                        <option value="failed">Failed</option>
+                    </select>
+                </div>
+
+                <!-- Date Range Filter -->
+                <div class="date-filter-wrapper flex items-center space-x-2">
+                    <div class="date-range-capsule flex items-center bg-white border border-slate-200 rounded-full px-5 py-2 space-x-4 shadow-sm">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">From</span>
+                            <input type="date" id="from-date" class="bg-transparent border-none text-[12px] font-bold text-slate-600 outline-none w-[110px]">
+                        </div>
+                        <div class="h-4 w-[1px] bg-slate-100"></div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">To</span>
+                            <input type="date" id="to-date" class="bg-transparent border-none text-[12px] font-bold text-slate-600 outline-none w-[110px]">
+                        </div>
+                    </div>
+                    <div class="date-actions flex items-center space-x-2">
+                        <button onclick="window.applyDateFilter()" class="bg-blue-600 text-white text-[11px] font-black px-6 py-2.5 rounded-full hover:bg-blue-700 transition uppercase tracking-widest shadow-sm active:scale-95">Apply</button>
+                        <button onclick="window.resetDateFilter()" class="bg-slate-100 text-slate-400 text-[11px] font-black px-6 py-2.5 rounded-full hover:bg-slate-200 transition uppercase tracking-widest shadow-sm active:scale-95">Reset</button>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -122,8 +146,9 @@
         requireAuth();
         document.getElementById('logout-btn').onclick = logout;
 
-        // Global storage for current filtered transactions
-        let currentTransactions = [];
+        // Global storage for transactions
+        let allLoadedTransactions = []; // Raw data from API
+        let currentTransactions = [];   // Filtered data for display/export
 
         // --- RESPONSIVE SIDEBAR TOGGLE ---
         window.toggleSidebar = () => {
@@ -135,6 +160,36 @@
 
         const statusFilter = document.getElementById('status-filter');
         statusFilter.onchange = loadTransactions;
+
+        // --- DATE RANGE FILTER LOGIC ---
+        window.applyDateFilter = () => {
+            const fromDate = document.getElementById('from-date').value;
+            const toDate = document.getElementById('to-date').value;
+
+            let filtered = [...allLoadedTransactions];
+
+            if (fromDate) {
+                const start = new Date(fromDate);
+                start.setHours(0, 0, 0, 0);
+                filtered = filtered.filter(tr => new Date(tr.created_at) >= start);
+            }
+
+            if (toDate) {
+                const end = new Date(toDate);
+                end.setHours(23, 59, 59, 999);
+                filtered = filtered.filter(tr => new Date(tr.created_at) <= end);
+            }
+
+            currentTransactions = filtered;
+            renderTransactions();
+        };
+
+        window.resetDateFilter = () => {
+            document.getElementById('from-date').value = '';
+            document.getElementById('to-date').value = '';
+            currentTransactions = [...allLoadedTransactions];
+            renderTransactions();
+        };
 
         // --- EXCEL EXPORT LOGIC ---
         window.exportToExcel = () => {
@@ -161,19 +216,73 @@
                 };
             });
 
-            // Generate Worksheet
             const ws = XLSX.utils.json_to_sheet(exportData);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Transactions");
 
-            // Generate Filename with YYYY-MM-DD
             const now = new Date();
             const dateStr = now.toISOString().split('T')[0];
             const filename = `transactions-export-${dateStr}.xlsx`;
 
-            // Download
             XLSX.writeFile(wb, filename);
         };
+
+        function renderTransactions() {
+            const list = document.getElementById('transactions-full-list');
+            
+            if (!currentTransactions || currentTransactions.length === 0) {
+                list.innerHTML = '<tr><td colspan="6" class="px-8 py-20 text-center text-slate-400 font-medium">No transactions found for selected criteria</td></tr>';
+                return;
+            }
+
+            list.innerHTML = currentTransactions.map(tr => `
+                <tr class="hover:bg-slate-50/50 transition">
+                    <td class="px-8 py-5" data-label="Type">
+                        <div class="flex flex-col items-end sm:items-start">
+                            <div class="font-bold text-slate-900 text-sm">Quick Collect</div>
+                            <div class="text-[10px] text-slate-400 font-bold tracking-widest mt-1 uppercase">Ref: ${tr.gateway_order_id || 'LOCAL'}</div>
+                        </div>
+                    </td>
+                    <td class="px-8 py-5" data-label="Source">
+                        <div class="flex flex-col items-end sm:items-start">
+                            <span class="status-badge bg-slate-50 text-slate-500 font-bold uppercase tracking-tighter">
+                                ${tr.group_id?.name || 'Direct'}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="px-8 py-5 font-bold text-slate-900" data-label="Customer">
+                        <div class="flex flex-col items-end sm:items-start">
+                            <span class="text-sm font-black">${tr.member_id?.name || tr.customer_name || 'Guest'}</span>
+                            ${tr.customer_phone ? `<div class="text-[10px] text-blue-500 font-bold mt-1 tracking-tight">${tr.customer_phone}</div>` : ''}
+                        </div>
+                    </td>
+                    <td class="px-8 py-5" data-label="Amount">
+                        <div class="flex flex-col items-end sm:items-start">
+                            <span class="text-lg font-black">₹${tr.amount.toLocaleString()}</span>
+                        </div>
+                    </td>
+                    <td class="px-8 py-5" data-label="Result">
+                        <div class="flex flex-col items-end sm:items-start">
+                            <div class="flex items-center space-x-3">
+                                <span class="status-badge px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${tr.payment_status === 'paid' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                    tr.payment_status === 'pending' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
+                        'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                }">${tr.payment_status}</span>
+                                ${tr.payment_status === 'pending' ? `
+                                    <button onclick="verifyTransaction('${tr._id}')" class="text-blue-600 hover:text-blue-800 text-[10px] font-black uppercase tracking-widest underline transition">Verify</button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-8 py-5 text-right" data-label="Date">
+                        <div class="flex flex-col items-end sm:items-start">
+                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-tight">${new Date(tr.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                            <span class="text-[10px] font-medium text-slate-300 mt-0.5">${new Date(tr.created_at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
 
         async function loadTransactions() {
             try {
@@ -181,62 +290,18 @@
                 if (statusFilter.value) params.status = statusFilter.value;
 
                 const transactions = await api.transactions.getAll(params);
-                currentTransactions = transactions; // Store for export
-
-                const list = document.getElementById('transactions-full-list');
-
-                if (transactions.length === 0) {
-                    list.innerHTML = '<tr><td colspan="6" class="px-8 py-20 text-center text-slate-400 font-medium">No records found</td></tr>';
-                    return;
+                allLoadedTransactions = transactions;
+                
+                // Maintain current date filter if any
+                const fromDate = document.getElementById('from-date').value;
+                const toDate = document.getElementById('to-date').value;
+                
+                if (fromDate || toDate) {
+                    window.applyDateFilter();
+                } else {
+                    currentTransactions = [...allLoadedTransactions];
+                    renderTransactions();
                 }
-
-                list.innerHTML = transactions.map(tr => `
-                    <tr class="hover:bg-slate-50/50 transition">
-                        <td class="px-8 py-5" data-label="Type">
-                            <div class="flex flex-col items-end sm:items-start">
-                                <div class="font-bold text-slate-900 text-sm">Quick Collect</div>
-                                <div class="text-[10px] text-slate-400 font-bold tracking-widest mt-1 uppercase">Ref: ${tr.gateway_order_id || 'LOCAL'}</div>
-                            </div>
-                        </td>
-                        <td class="px-8 py-5" data-label="Source">
-                            <div class="flex flex-col items-end sm:items-start">
-                                <span class="status-badge bg-slate-50 text-slate-500 font-bold uppercase tracking-tighter">
-                                    ${tr.group_id?.name || 'Direct'}
-                                </span>
-                            </div>
-                        </td>
-                        <td class="px-8 py-5 font-bold text-slate-900" data-label="Customer">
-                            <div class="flex flex-col items-end sm:items-start">
-                                <span class="text-sm font-black">${tr.member_id?.name || tr.customer_name || 'Guest'}</span>
-                                ${tr.customer_phone ? `<div class="text-[10px] text-blue-500 font-bold mt-1 tracking-tight">${tr.customer_phone}</div>` : ''}
-                            </div>
-                        </td>
-                        <td class="px-8 py-5" data-label="Amount">
-                            <div class="flex flex-col items-end sm:items-start">
-                                <span class="text-lg font-black">₹${tr.amount.toLocaleString()}</span>
-                            </div>
-                        </td>
-                        <td class="px-8 py-5" data-label="Result">
-                            <div class="flex flex-col items-end sm:items-start">
-                                <div class="flex items-center space-x-3">
-                                    <span class="status-badge px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${tr.payment_status === 'paid' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-                        tr.payment_status === 'pending' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
-                            'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-                    }">${tr.payment_status}</span>
-                                    ${tr.payment_status === 'pending' ? `
-                                        <button onclick="verifyTransaction('${tr._id}')" class="text-blue-600 hover:text-blue-800 text-[10px] font-black uppercase tracking-widest underline transition">Verify</button>
-                                    ` : ''}
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-8 py-5 text-right" data-label="Date">
-                            <div class="flex flex-col items-end sm:items-start">
-                                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-tight">${new Date(tr.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                                <span class="text-[10px] font-medium text-slate-300 mt-0.5">${new Date(tr.created_at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
-                            </div>
-                        </td>
-                    </tr>
-                `).join('');
             } catch (err) {
                 console.error(err);
             }
