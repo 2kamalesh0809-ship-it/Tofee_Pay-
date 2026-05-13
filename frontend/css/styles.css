@@ -55,8 +55,8 @@ body {
 }
 
 .branding-sidebar {
-    height: 90px !important;
-    max-height: 90px !important;
+    height: 110px !important;
+    max-height: 110px !important;
     width: auto !important;
     object-fit: contain !important;
 }
