@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Checkout | UMA MAHESHWARI AGENCY</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/tailwind-output.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -66,6 +66,14 @@
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Phone
                         Number</label>
                     <input type="tel" id="cust_phone" required class="input-premium py-4" placeholder="+91 98765 43210">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Business Category</label>
+                    <input type="text" id="businessCategory" class="input-premium py-4" placeholder="Consulting, Retail, etc.">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Business Name</label>
+                    <input type="text" id="businessName" class="input-premium py-4" placeholder="Your Business Name">
                 </div>
             </div>
 
@@ -245,20 +253,33 @@
         }
 
         document.getElementById('pay-btn').onclick = async () => {
+            const btn = document.getElementById('pay-btn');
+            const originalText = btn.innerText;
+
             try {
+                // Disable button and show loading state
+                btn.disabled = true;
+                btn.innerText = 'Processing...';
+
                 const customerName = document.getElementById('cust_name').value;
                 const customerEmail = document.getElementById('cust_email').value;
                 const customerPhone = document.getElementById('cust_phone').value;
+                const businessCategory = document.getElementById('businessCategory').value.trim() || "-";
+                const businessName = document.getElementById('businessName').value.trim() || "-";
 
                 if (!customerName || !customerEmail || !customerPhone) {
                     alert('Please enter your name, email and phone number');
+                    btn.disabled = false;
+                    btn.innerText = originalText;
                     return;
                 }
 
                 const order = await api.payments.initiate(token || groupId, {
                     customer_name: customerName,
                     customer_email: customerEmail,
-                    customer_phone: customerPhone
+                    customer_phone: customerPhone,
+                    business_category: businessCategory,
+                    business_name: businessName
                 });
 
                 const options = {
@@ -270,6 +291,7 @@
                     order_id: order.order_id,
                     handler: async function (response) {
                         try {
+                            btn.innerText = 'Verifying...';
                             await api.payments.verify(order.transaction_id);
 
                             document.getElementById('checkout-card').classList.add('hidden');
@@ -280,16 +302,16 @@
 
                             // WhatsApp Advanced Flow
                             document.getElementById('whatsapp-btn').onclick = async () => {
-                                const btn = document.getElementById('whatsapp-btn');
+                                const waBtn = document.getElementById('whatsapp-btn');
                                 const spinner = document.getElementById('btn-spinner');
                                 const icon = document.getElementById('wa-icon');
-                                const btnText = document.getElementById('btn-text');
+                                const waBtnText = document.getElementById('btn-text');
 
                                 // Show Loading
-                                btn.disabled = true;
+                                waBtn.disabled = true;
                                 spinner.classList.remove('hidden');
                                 icon.classList.add('hidden');
-                                btnText.innerText = "Generating Card...";
+                                waBtnText.innerText = "Generating Card...";
 
                                 try {
                                     // Set Dynamic Values to Hidden Card
@@ -321,18 +343,17 @@
                                     const customerPhone = document.getElementById('cust_phone').value;
                                     const amountPaid = document.getElementById('amount').innerText;
                                     const refId = response.razorpay_payment_id;
-                                    const bizName = "UMA MAHESHWARI AGENCY"; // Standardized branding
-                                    const bizCategory = paymentData.organization_id?.business_category || 'Payment Services';
+                                    const bizName = document.getElementById('biz_name')?.value || "UMA MAHESHWARI AGENCY"; 
+                                    const bizCategory = document.getElementById('biz_category')?.value || paymentData.organization_id?.business_category || 'Payment Services';
 
                                     const shareText = `Hello,\n\nHere is my payment slip.\n\nCustomer:\n${customerName}\n\nPhone:\n${customerPhone}\n\nBusiness Category:\n${bizCategory}\n\nBusiness Name:\n${bizName}\n\nAmount Paid:\n${amountPaid}\n\nReference ID:\n${refId}\n\nPayment completed successfully.`;
 
                                     // Target WhatsApp Contact
                                     const targetWhatsApp = "919952481234";
 
-                                    // Detect Mobile - native file share is much more stable on mobile OS
+                                    // Detect Mobile 
                                     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-                                    // Strategy: Native Share (Only if Mobile & Supported)
                                     if (isMobile && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
                                         try {
                                             await navigator.share({
@@ -341,33 +362,37 @@
                                                 text: shareText
                                             });
                                         } catch (shareErr) {
-                                            // Handle Abort or OS-level failure silently
                                             if (shareErr.name !== 'AbortError') {
-                                                console.warn('Native share failed, falling back to URL:', shareErr);
                                                 window.open(`https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(shareText)}`, '_blank');
                                             }
                                         }
                                     } else {
-                                        // Fallback: Direct WhatsApp for Desktop/Unsupported (Text only)
                                         const waUrl = `https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(shareText)}`;
                                         window.open(waUrl, '_blank');
                                     }
                                 } catch (err) {
                                     console.error('Sharing process failed:', err);
                                     alert('Direct sharing works best on mobile devices. Redirecting to WhatsApp...');
-                                    const customerName = document.getElementById('cust_name').value;
-                                    const amountPaid = document.getElementById('amount').innerText;
-                                    const shareText = `Here is my payment slip.\nPayment completed successfully.\n\nCustomer: ${customerName}\nAmount: ${amountPaid}`;
-                                    window.open(`https://wa.me/919025010403?text=${encodeURIComponent(shareText)}`, '_blank');
+                                    const fallbackText = `Here is my payment slip.\nPayment completed successfully.\n\nCustomer: ${customerName}\nAmount: ${amountPaid}`;
+                                    window.open(`https://wa.me/919952481234?text=${encodeURIComponent(fallbackText)}`, '_blank');
                                 } finally {
-                                    btn.disabled = false;
+                                    waBtn.disabled = false;
                                     spinner.classList.add('hidden');
                                     icon.classList.remove('hidden');
-                                    btnText.innerText = "Proceed to Send on WhatsApp";
+                                    waBtnText.innerText = "Proceed to Send on WhatsApp";
                                 }
                             };
                         } catch (err) {
                             alert('Verification failed: ' + err.message);
+                            btn.disabled = false;
+                            btn.innerText = originalText;
+                        }
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            // Re-enable button if modal is closed without payment
+                            btn.disabled = false;
+                            btn.innerText = originalText;
                         }
                     },
                     prefill: {
@@ -382,6 +407,8 @@
                 rzp.open();
             } catch (err) {
                 alert(err.message);
+                btn.disabled = false;
+                btn.innerText = originalText;
             }
         };
 

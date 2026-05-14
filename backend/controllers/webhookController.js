@@ -6,14 +6,29 @@ const PaymentLink = require('../models/PaymentLink');
 exports.handleRazorpayWebhook = async (req, res) => {
     try {
         const signature = req.headers['x-razorpay-signature'];
+        const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
+
+        if (!signature) {
+            console.warn('[WEBHOOK_REJECTED] Missing x-razorpay-signature header');
+            return res.status(401).json({ message: 'Unauthorized: Missing signature' });
+        }
+
+        // Verify the signature using rawBody
+        const expectedSignature = crypto
+            .createHmac('sha256', webhookSecret)
+            .update(req.rawBody)
+            .digest('hex');
+
+        if (signature !== expectedSignature) {
+            console.warn('[WEBHOOK_REJECTED] Invalid signature match');
+            return res.status(401).json({ message: 'Unauthorized: Invalid signature' });
+        }
+
         const event = req.body.event;
         const payload = req.body.payload.payment ? req.body.payload.payment.entity : req.body.payload.order.entity;
         
-        // Find transaction to get organization context
         const orderId = payload.order_id || payload.id;
-        
-        // Skip detailed signature check for now to ensure it works for user
-        console.log('WEBHOOK_RECEIVED:', event, orderId);
+        console.log('[WEBHOOK_VERIFIED]:', event, orderId);
 
     if (event === 'payment.captured') {
         const orderId = payload.order_id;

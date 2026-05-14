@@ -1,28 +1,48 @@
 const PROD_API_URL = 'https://tofee-pay.onrender.com/api';
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:5001/api'
+    ? 'http://localhost:3000/api'
     : PROD_API_URL;
 
 export async function request(endpoint, options = {}) {
     const token = localStorage.getItem('token');
+    
+    // Check if offline
+    if (!navigator.onLine) {
+        throw new Error('You are currently offline. Please check your internet connection.');
+    }
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
     const headers = {
         'Content-Type': 'application/json',
         ...(token && { 'Authorization': `Bearer ${token}` }),
         ...options.headers,
     };
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        ...options,
-        headers,
-    });
+    try {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+            ...options,
+            headers,
+            signal: controller.signal
+        });
 
-    const data = await response.json();
+        clearTimeout(timeoutId);
 
-    if (!response.ok) {
-        throw new Error(data.message || 'Something went wrong');
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Something went wrong');
+        }
+
+        return data;
+    } catch (error) {
+        clearTimeout(timeoutId);
+        if (error.name === 'AbortError') {
+            throw new Error('Request timed out. The server is taking too long to respond.');
+        }
+        throw error;
     }
-
-    return data;
 }
 
 export const api = {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transactions | PROMPTIX PAY</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/tailwind-output.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -122,6 +122,8 @@
                                 <th class="px-8 py-4">Transaction Details</th>
                                 <th class="px-8 py-4">Source Group</th>
                                 <th class="px-8 py-4">Customer</th>
+                                <th class="px-8 py-4">Business Category</th>
+                                <th class="px-8 py-4">Business Name</th>
                                 <th class="px-8 py-4">Amount</th>
                                 <th class="px-8 py-4">Result</th>
                                 <th class="px-8 py-4 text-right">Processed At</th>
@@ -231,7 +233,7 @@
             const list = document.getElementById('transactions-full-list');
             
             if (!currentTransactions || currentTransactions.length === 0) {
-                list.innerHTML = '<tr><td colspan="6" class="px-8 py-20 text-center text-slate-400 font-medium">No transactions found for selected criteria</td></tr>';
+                list.innerHTML = '<tr><td colspan="8" class="px-8 py-20 text-center text-slate-400 font-medium">No transactions found for selected criteria</td></tr>';
                 return;
             }
 
@@ -256,6 +258,16 @@
                             ${tr.customer_phone ? `<div class="text-[10px] text-blue-500 font-bold mt-1 tracking-tight">${tr.customer_phone}</div>` : ''}
                         </div>
                     </td>
+                    <td class="px-8 py-5" data-label="Business Category">
+                        <div class="flex flex-col items-end sm:items-start">
+                            <span class="text-xs font-bold text-slate-600 uppercase tracking-tight">${tr.business_category || '-'}</span>
+                        </div>
+                    </td>
+                    <td class="px-8 py-5" data-label="Business Name">
+                        <div class="flex flex-col items-end sm:items-start">
+                            <span class="text-xs font-bold text-slate-600 uppercase tracking-tight">${tr.business_name || '-'}</span>
+                        </div>
+                    </td>
                     <td class="px-8 py-5" data-label="Amount">
                         <div class="flex flex-col items-end sm:items-start">
                             <span class="text-lg font-black">₹${tr.amount.toLocaleString()}</span>
@@ -274,8 +286,8 @@
                             </div>
                         </div>
                     </td>
-                    <td class="px-8 py-5 text-right" data-label="Date">
-                        <div class="flex flex-col items-end sm:items-start">
+                    <td class="px-8 py-5 text-right" data-label="Processed At">
+                        <div class="flex flex-col items-end">
                             <span class="text-[11px] font-bold text-slate-400 uppercase tracking-tight">${new Date(tr.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                             <span class="text-[10px] font-medium text-slate-300 mt-0.5">${new Date(tr.created_at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                         </div>

@@ -21,7 +21,11 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Middleware
-app.use(express.json());
+app.use(express.json({
+    verify: (req, res, buf) => {
+        req.rawBody = buf.toString();
+    }
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());

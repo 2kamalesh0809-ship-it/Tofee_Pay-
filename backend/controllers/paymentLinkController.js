@@ -21,7 +21,6 @@ exports.verifyPayment = async (req, res) => {
         
         // Fetch payments for this order
         const payments = await dynamicRazorpay.orders.fetchPayments(transaction.gateway_order_id);
-        console.log(`VERIFYING_${transaction.gateway_order_id}:`, payments.items.length, 'payments found.');
         
         const capturedPayment = payments.items.find(p => p.status === 'captured');
 
@@ -92,7 +91,7 @@ exports.getPaymentLinkByToken = async (req, res) => {
 exports.initiatePayment = async (req, res) => {
     try {
         const { token } = req.params;
-        const { customer_name, customer_email, customer_phone } = req.body;
+        const { customer_name, customer_email, customer_phone, business_category, business_name } = req.body;
 
         const link = await PaymentLink.findOne({ link_token: token }).populate('organization_id');
         if (!link) return res.status(404).json({ message: 'Payment link not found' });
@@ -123,7 +122,9 @@ exports.initiatePayment = async (req, res) => {
                 organization_id: org._id.toString(),
                 customer_name,
                 customer_email,
-                customer_phone
+                customer_phone,
+                business_category,
+                business_name
             }
         };
 
@@ -138,9 +139,12 @@ exports.initiatePayment = async (req, res) => {
             gateway_order_id: order.id,
             customer_name,
             customer_email,
-            customer_phone
+            customer_phone,
+            business_category: business_category || "-",
+            business_name: business_name || "-"
         });
-        await transaction.save();
+        
+        const saved = await transaction.save();
 
         res.status(200).json({
             order_id: order.id,

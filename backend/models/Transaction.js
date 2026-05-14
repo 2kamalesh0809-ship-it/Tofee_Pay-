@@ -13,6 +13,8 @@ const transactionSchema = new mongoose.Schema({
     customer_name: { type: String },
     customer_email: { type: String },
     customer_phone: { type: String },
+    business_category: { type: String },
+    business_name: { type: String },
     created_at: { type: Date, default: Date.now }
 });
 
