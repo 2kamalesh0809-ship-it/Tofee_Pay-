@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Collect | PROMPTIX PAY</title>
+    <title>Direct Billing | PROMPTIX PAY</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="css/tailwind-output.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -31,11 +32,11 @@
             </a>
             <a href="groups.html" class="sidebar-item">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                <span>Payment Groups</span>
+                <span>Service Groups</span>
             </a>
             <a href="members.html" class="sidebar-item">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                <span>Members</span>
+                <span>Customers</span>
             </a>
             <a href="transactions.html" class="sidebar-item">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
@@ -43,7 +44,7 @@
             </a>
             <a href="quick-collect.html" class="sidebar-item active">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                <span>Quick Collect</span>
+                <span>Direct Billing</span>
             </a>
             <a href="settings.html" class="sidebar-item">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
@@ -70,10 +71,9 @@
                         </path>
                     </svg>
                 </button>
-                <h2 class="text-xl font-bold text-slate-900 tracking-tight">Quick Collect</h2>
+                <h2 class="text-xl font-bold text-slate-900 tracking-tight">Direct Billing</h2>
             </div>
-            <button onclick="toggleModal('link-modal')" class="btn-premium px-6 py-2 shadow-none">
-                + Generate Link
+                + Generate URL
             </button>
         </header>
 
@@ -89,7 +89,7 @@
     <div id="link-modal" class="hidden fixed inset-0 bg-black/10 backdrop-blur-md flex items-center justify-center p-4 z-50">
         <div class="bg-white rounded-[24px] w-full max-w-md p-10 shadow-2xl animate-fade-in border border-[#D2D2D7]/50">
             <div class="flex justify-between items-center mb-10">
-                <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Payment Link</h3>
+                <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Billing URL</h3>
                 <button onclick="toggleModal('link-modal')" class="text-slate-400 hover:text-slate-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -104,7 +104,7 @@
                     <input type="text" id="link_note" required class="input-premium" placeholder="e.g. Workshop Registration">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Group Association</label>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Category Association</label>
                     <select id="group_id" class="input-premium appearance-none bg-slate-50">
                         <option value="">No Group (General)</option>
                     </select>
@@ -214,8 +214,8 @@
                 if (links.length === 0) {
                     container.innerHTML = `
                         <div class="col-span-full text-center py-32 card-premium bg-white">
-                            <h3 class="text-xl font-bold text-slate-900 mb-2 tracking-tight">No links generated</h3>
-                            <p class="text-slate-500 mb-8 font-medium">Create your first collection link to start getting paid.</p>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2 tracking-tight">No URLs generated</h3>
+                            <p class="text-slate-500 mb-8 font-medium">Create your first billing URL to start managing transactions.</p>
                             <button onclick="toggleModal('link-modal')" class="btn-premium px-8 py-2">Generate First Link</button>
                         </div>
                     `;

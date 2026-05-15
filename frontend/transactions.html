@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transactions | PROMPTIX PAY</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="css/tailwind-output.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -31,11 +32,11 @@
             </a>
             <a href="groups.html" class="sidebar-item">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                <span>Payment Groups</span>
+                <span>Service Groups</span>
             </a>
             <a href="members.html" class="sidebar-item">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                <span>Members</span>
+                <span>Customers</span>
             </a>
             <a href="transactions.html" class="sidebar-item active">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
@@ -43,7 +44,7 @@
             </a>
             <a href="quick-collect.html" class="sidebar-item">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                <span>Quick Collect</span>
+                <span>Direct Billing</span>
             </a>
             <a href="settings.html" class="sidebar-item">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
@@ -84,7 +85,7 @@
                     <span class="filter-label text-[10px] font-black text-slate-400 uppercase tracking-widest">Status:</span>
                     <select id="status-filter"
                         class="bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs font-bold text-slate-600 outline-none focus:border-blue-600 transition uppercase tracking-wider">
-                        <option value="">All Transactions</option>
+                        <option value="">All Records</option>
                         <option value="paid">Paid</option>
                         <option value="pending">Pending</option>
                         <option value="failed">Failed</option>
@@ -120,7 +121,7 @@
                         <thead>
                             <tr class="table-header">
                                 <th class="px-8 py-4">Transaction Details</th>
-                                <th class="px-8 py-4">Source Group</th>
+                                <th class="px-8 py-4">Category</th>
                                 <th class="px-8 py-4">Customer</th>
                                 <th class="px-8 py-4">Business Category</th>
                                 <th class="px-8 py-4">Business Name</th>
@@ -204,9 +205,9 @@
             const exportData = currentTransactions.map(tr => {
                 const dateObj = new Date(tr.created_at);
                 return {
-                    "Transaction Type": "Quick Collect",
-                    "Reference ID": tr.gateway_order_id || tr.razorpay_payment_id || 'LOCAL',
-                    "Source Group": tr.group_id?.name || 'Direct',
+                    "Transaction Type": "Direct Billing",
+                    "Reference ID": tr.billing_ref_id || tr.razorpay_payment_id || 'LOCAL',
+                    "Category": tr.group_id?.name || 'Direct',
                     "Customer Name": tr.member_id?.name || tr.customer_name || 'Guest',
                     "Customer Phone": tr.customer_phone || '-',
                     "Business Category": tr.business_category || '-',
@@ -241,8 +242,8 @@
                 <tr class="hover:bg-slate-50/50 transition">
                     <td class="px-8 py-5" data-label="Type">
                         <div class="flex flex-col items-end sm:items-start">
-                            <div class="font-bold text-slate-900 text-sm">Quick Collect</div>
-                            <div class="text-[10px] text-slate-400 font-bold tracking-widest mt-1 uppercase">Ref: ${tr.gateway_order_id || 'LOCAL'}</div>
+                            <div class="font-bold text-slate-900 text-sm">Direct Billing</div>
+                            <div class="text-[10px] text-slate-400 font-bold tracking-widest mt-1 uppercase">Ref: ${tr.billing_ref_id || 'LOCAL'}</div>
                         </div>
                     </td>
                     <td class="px-8 py-5" data-label="Source">

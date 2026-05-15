@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Checkout | UMA MAHESHWARI AGENCY</title>
+    <title>Checkout | PROMPTIX PAY</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="css/tailwind-output.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -80,7 +81,7 @@
             <!-- Action Button -->
             <button id="pay-btn"
                 class="w-full btn-premium py-5 rounded-[24px] text-lg font-bold shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-transform">
-                Proceed to Payment
+                Complete Checkout
             </button>
 
             <!-- Encryption Note -->
@@ -135,7 +136,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <h1 class="text-3xl font-black text-slate-900 tracking-tight">Payment Confirmed</h1>
+                <h1 class="text-3xl font-black text-slate-900 tracking-tight">Checkout Successful</h1>
                 <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mt-2">UMA MAHESHWARI AGENCY</p>
             </div>
 
@@ -150,7 +151,7 @@
                     <span id="payment-id" class="text-[10px] font-mono font-bold text-blue-600">...</span>
                 </div>
                 <div class="pt-2">
-                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Amount Paid</p>
+                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Amount</p>
                     <div id="display-amount" class="text-4xl font-black text-slate-900 tracking-tighter">₹0</div>
                 </div>
             </div>
@@ -176,7 +177,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <h2 class="text-2xl font-black text-slate-900 tracking-tight">Payment Confirmed</h2>
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">Checkout Successful</h2>
                 <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mt-2">UMA MAHESHWARI AGENCY</p>
             </div>
 
@@ -346,7 +347,7 @@
                                     const bizName = document.getElementById('biz_name')?.value || "UMA MAHESHWARI AGENCY"; 
                                     const bizCategory = document.getElementById('biz_category')?.value || paymentData.organization_id?.business_category || 'Payment Services';
 
-                                    const shareText = `Hello,\n\nHere is my payment slip.\n\nCustomer:\n${customerName}\n\nPhone:\n${customerPhone}\n\nBusiness Category:\n${bizCategory}\n\nBusiness Name:\n${bizName}\n\nAmount Paid:\n${amountPaid}\n\nReference ID:\n${refId}\n\nPayment completed successfully.`;
+                                    const shareText = `Hello,\n\nHere is my checkout confirmation.\n\nCustomer:\n${customerName}\n\nPhone:\n${customerPhone}\n\nBusiness Category:\n${bizCategory}\n\nBusiness Name:\n${bizName}\n\nTotal Amount:\n${amountPaid}\n\nReference ID:\n${refId}\n\nCheckout completed successfully.`;
 
                                     // Target WhatsApp Contact
                                     const targetWhatsApp = "919952481234";
@@ -373,7 +374,7 @@
                                 } catch (err) {
                                     console.error('Sharing process failed:', err);
                                     alert('Direct sharing works best on mobile devices. Redirecting to WhatsApp...');
-                                    const fallbackText = `Here is my payment slip.\nPayment completed successfully.\n\nCustomer: ${customerName}\nAmount: ${amountPaid}`;
+                                    const fallbackText = `Here is my checkout confirmation.\nCheckout completed successfully.\n\nCustomer: ${customerName}\nAmount: ${amountPaid}`;
                                     window.open(`https://wa.me/919952481234?text=${encodeURIComponent(fallbackText)}`, '_blank');
                                 } finally {
                                     waBtn.disabled = false;

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | PROMPTIX PAY</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="css/tailwind-output.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -14,37 +15,48 @@
         <div class="card-premium bg-white p-6 sm:p-12 shadow-sm border-[#D2D2D7]/50">
             <div class="text-center mb-12">
                 <a href="https://promptix.pro/" class="inline-block mb-6">
-                    <img src="assets/branding.png" class="branding-main" alt="PROMPTIX PAY" onerror="this.src='assets/logo.png';">
+                    <img src="assets/branding.png" class="branding-main" alt="PROMPTIX PAY"
+                        onerror="this.src='assets/logo.png';">
                 </a>
                 <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Create Account</h1>
-                <p class="text-slate-500 text-sm font-medium mt-2">Join the premium payment network</p>
+                <p class="text-slate-500 text-sm font-medium mt-2">Open your internal business portal</p>
             </div>
 
             <form id="register-form" class="space-y-6">
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Full Name</label>
-                    <input type="text" id="name" required class="input-premium" placeholder="John Doe">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Full
+                        Name</label>
+                    <input type="text" id="name" required class="input-premium" placeholder="John Michael">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Business Name</label>
-                    <input type="text" id="organization_name" required class="input-premium" placeholder="Acme Corporation">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Business
+                        Name</label>
+                    <input type="text" id="organization_name" required class="input-premium"
+                        placeholder="Acme Corporation">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Email Address</label>
-                    <input type="email" id="email" required class="input-premium" placeholder="john@example.com">
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Email
+                        Address</label>
+                    <input type="email" id="email" required class="input-premium" placeholder="infopromptix@gmail.com">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Phone Number</label>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Phone
+                        Number</label>
                     <input type="tel" id="phone" required class="input-premium" placeholder="+91 00000 00000">
                 </div>
                 <div class="relative group">
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Password</label>
+                    <label
+                        class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Password</label>
                     <div class="relative">
-                        <input type="password" id="password" required class="input-premium pr-12" placeholder="••••••••">
-                        <button type="button" id="toggle-password" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-blue-600 transition-colors">
+                        <input type="password" id="password" required class="input-premium pr-12"
+                            placeholder="••••••••">
+                        <button type="button" id="toggle-password"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-blue-600 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path id="eye-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path id="eye-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                <path id="eye-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path id="eye-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
                         </button>
                     </div>
@@ -56,7 +68,8 @@
 
             <div class="mt-12 pt-8 border-t border-slate-50 text-center">
                 <p class="text-slate-400 text-sm font-medium">
-                    Already have an account? <a href="login.html" class="text-blue-600 font-bold hover:underline transition-all">Log in here</a>
+                    Already have an account? <a href="login.html"
+                        class="text-blue-600 font-bold hover:underline transition-all">Log in here</a>
                 </p>
             </div>
         </div>
@@ -98,7 +111,7 @@
             try {
                 // 2. Proper async registration flow
                 const data = await api.auth.register(payload);
-                
+
                 // 3. Ensure token/session is stored before redirect
                 await login(data.user, data.token);
             } catch (err) {
@@ -116,7 +129,7 @@
         toggleBtn.addEventListener('click', () => {
             const isPassword = passwordInput.type === 'password';
             passwordInput.type = isPassword ? 'text' : 'password';
-            
+
             if (isPassword) {
                 toggleBtn.classList.add('text-blue-600');
             } else {
@@ -125,4 +138,5 @@
         });
     </script>
 </body>
+
 </html>

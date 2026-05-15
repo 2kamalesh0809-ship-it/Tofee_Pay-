@@ -13,6 +13,7 @@ const memberRoutes = require('./routes/members');
 const transactionRoutes = require('./routes/transactions');
 const paymentLinkRoutes = require('./routes/paymentLinks');
 const webhookRoutes = require('./routes/webhooks');
+const contactRoutes = require('./routes/contact');
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use('/api/members', memberRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/payment-links', paymentLinkRoutes);
 app.use('/api/webhooks', webhookRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Health Check
 app.get('/health', (req, res) => {
