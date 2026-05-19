@@ -14,24 +14,71 @@ exports.verifyPayment = async (req, res) => {
         if (!transaction) return res.status(404).json({ message: 'Transaction not found' });
 
         const org = transaction.organization_id;
-        const key_id = (org.razorpay_key_id && org.razorpay_key_id.startsWith('rzp_')) ? org.razorpay_key_id : process.env.RAZORPAY_KEY_ID;
-        const key_secret = (org.razorpay_key_id && org.razorpay_key_id.startsWith('rzp_')) ? org.razorpay_key_secret : process.env.RAZORPAY_KEY_SECRET;
+        const key_id = (org.razorpay_key_id && org.razorpay_key_id.startsWith('rzp_live_')) ? org.razorpay_key_id : process.env.RAZORPAY_KEY_ID;
+        const key_secret = (org.razorpay_key_id && org.razorpay_key_id.startsWith('rzp_live_')) ? org.razorpay_key_secret : process.env.RAZORPAY_KEY_SECRET;
+
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+        // Secure Signature Verification (No Auth required for customer checkouts)
+        if (razorpay_signature) {
+            if (transaction.gateway_order_id !== razorpay_order_id) {
+                return res.status(400).json({ message: 'Order ID mismatch' });
+            }
+
+            const expectedSignature = crypto
+                .createHmac('sha256', key_secret)
+                .update(razorpay_order_id + "|" + razorpay_payment_id)
+                .digest('hex');
+
+            if (expectedSignature !== razorpay_signature) {
+                console.warn('[VERIFY_REJECTED] Invalid signature match');
+                return res.status(400).json({ message: 'Invalid payment signature' });
+            }
+
+            // Update transaction details if not already paid
+            if (transaction.payment_status !== 'paid') {
+                transaction.payment_status = 'paid';
+                transaction.gateway_transaction_id = razorpay_payment_id;
+                await transaction.save();
+
+                // Auto-sync member from transaction data (for Quick Collect / new customers)
+                const { syncMemberFromTransaction } = require('../utils/memberSync');
+                await syncMemberFromTransaction(transaction);
+            }
+
+            return res.status(200).json({ status: 'paid', message: 'Success! Payment verified.' });
+        }
+
+        // Manual Sync (Merchant Dashboard check). Requires auth.
+        const token = req.header('Authorization')?.replace('Bearer ', '');
+        if (!token) {
+            return res.status(401).json({ message: 'Authentication required' });
+        }
+        
+        const jwt = require('jsonwebtoken');
+        const User = require('../models/User');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findOne({ _id: decoded.id });
+        if (!user) {
+            return res.status(401).json({ message: 'User not found' });
+        }
 
         const dynamicRazorpay = new Razorpay({ key_id, key_secret });
         
         // Fetch payments for this order
         const payments = await dynamicRazorpay.orders.fetchPayments(transaction.gateway_order_id);
-        
         const capturedPayment = payments.items.find(p => p.status === 'captured');
 
         if (capturedPayment) {
-            transaction.payment_status = 'paid';
-            transaction.gateway_transaction_id = capturedPayment.id;
-            await transaction.save();
+            if (transaction.payment_status !== 'paid') {
+                transaction.payment_status = 'paid';
+                transaction.gateway_transaction_id = capturedPayment.id;
+                await transaction.save();
 
-            // Auto-sync member from transaction data (for Quick Collect / new customers)
-            const { syncMemberFromTransaction } = require('../utils/memberSync');
-            await syncMemberFromTransaction(transaction);
+                // Auto-sync member from transaction data (for Quick Collect / new customers)
+                const { syncMemberFromTransaction } = require('../utils/memberSync');
+                await syncMemberFromTransaction(transaction);
+            }
 
             return res.status(200).json({ status: 'paid', message: 'Success! Razorpay confirmed the payment.' });
         }
@@ -98,11 +145,16 @@ exports.initiatePayment = async (req, res) => {
 
         const org = link.organization_id;
         
-        // Safety Check: If keys don't look like Razorpay keys (rzp_...), use defaults
+        // Validate amount
+        if (!link.amount || link.amount <= 0) {
+            return res.status(400).json({ message: 'Invalid payment link amount' });
+        }
+
+        // Safety Check: If keys don't look like Razorpay LIVE keys (rzp_live_...), use defaults
         let key_id = org.razorpay_key_id;
         let key_secret = org.razorpay_key_secret;
 
-        if (!key_id || !key_id.startsWith('rzp_')) {
+        if (!key_id || !key_id.startsWith('rzp_live_')) {
             key_id = process.env.RAZORPAY_KEY_ID;
             key_secret = process.env.RAZORPAY_KEY_SECRET;
         }

@@ -69,7 +69,7 @@ export const api = {
     },
     payments: {
         initiate: (token, data) => request(`/payment-links/${token}/pay`, { method: 'POST', body: JSON.stringify(data) }),
-        verify: (id) => request(`/payment-links/verify/${id}`, { method: 'POST' }),
+        verify: (id, data) => request(`/payment-links/verify/${id}`, { method: 'POST', ...(data && { body: JSON.stringify(data) }) }),
     },
     transactions: {
         getAll: (params) => {
@@ -83,7 +83,7 @@ export const api = {
         getOne: (token) => request(`/payment-links/${token}`),
         create: (data) => request('/payment-links', { method: 'POST', body: JSON.stringify(data) }),
         initiate: (token, data) => request(`/payment-links/${token}/pay`, { method: 'POST', body: JSON.stringify(data) }),
-        verify: (id) => request(`/payment-links/verify/${id}`, { method: 'POST' }),
+        verify: (id, data) => request(`/payment-links/verify/${id}`, { method: 'POST', ...(data && { body: JSON.stringify(data) }) }),
         delete: (id) => request(`/payment-links/${id}`, { method: 'DELETE' }),
     },
     organizations: {

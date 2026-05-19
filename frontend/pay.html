@@ -293,7 +293,11 @@
                     handler: async function (response) {
                         try {
                             btn.innerText = 'Verifying...';
-                            await api.payments.verify(order.transaction_id);
+                            await api.payments.verify(order.transaction_id, {
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_signature: response.razorpay_signature
+                            });
 
                             document.getElementById('checkout-card').classList.add('hidden');
                             document.getElementById('success-state').classList.remove('hidden');
