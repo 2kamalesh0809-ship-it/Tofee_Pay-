@@ -3,36 +3,7 @@ const Organization = require('../models/Organization');
 const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
-    try {
-        const { name, email, phone, password, organization_name } = req.body;
-
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
-
-        const user = new User({ name, email, phone, password });
-
-        // If organization_name is provided, create an organization automatically
-        if (organization_name) {
-            const organization = new Organization({
-                name: organization_name,
-                owner_id: user._id
-            });
-            await organization.save();
-            user.organization_id = organization._id;
-            user.role = 'owner';
-        }
-
-        await user.save();
-        const populatedUser = await User.findById(user._id).populate('organization_id');
-
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-
-        res.status(201).json({ user: populatedUser, token });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+    return res.status(403).json({ message: 'Public registration is disabled. Please contact your system administrator.' });
 };
 
 exports.login = async (req, res) => {
